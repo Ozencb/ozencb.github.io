@@ -15,15 +15,16 @@ console.log("Globe, shapes and lorenz functions are copied over from official P5
 console.log("The rest of the visuals are made by Kjetil Golid.");
 console.log("His work can be found here: https://github.com/kgolid/p5ycho");
 
-let functions = [
-    crossGrid, curvedShapes, globe, lorenz, shapes, 
-    smokeRings, stripes, stripesRandom, terrain, 
+let visuals = [
+    crossGrid, curvedShapes, globe, lorenz, shapes,
+    smokeRings, stripes, stripesRandom, terrain,
     topography, trace, trunk
 ];
 
-function randomNumGenerator(min, max) {
+const randomNumGenerator = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
+const visual = visuals[randomNumGenerator(0, visuals.length - 1)];
 
-new p5(functions[randomNumGenerator(0, functions.length - 1)]);
+new p5(visual);

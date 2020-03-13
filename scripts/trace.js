@@ -1,4 +1,3 @@
-
 const trace = (p) => {
     let THE_SEED;
     let number_of_particles = 500;
