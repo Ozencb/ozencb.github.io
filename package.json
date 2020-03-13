@@ -4,7 +4,7 @@
   "description": "Özenç Bilgili's personal website",
   "main": "index.js",
   "scripts": {
-    "build": "rollup -c",
+    "build": "rollup -c && npm run uglify",
     "watch": "rollup -c -w",
     "uglify": "uglifyjs dist/index.min.js --compress --mangle -o dist/index.min.js"
   },
