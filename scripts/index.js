@@ -8,7 +8,7 @@ import stripes from './stripes';
 import stripesRandom from './stripesRandom';
 import terrain from './terrain';
 import topography from './topography';
-import traceColored from './traceColored';
+import trace from './trace';
 import trunk from './trunk';
 
 console.log("Globe, shapes and lorenz functions are copied over from official P5js site.");
@@ -18,7 +18,7 @@ console.log("His work can be found here: https://github.com/kgolid/p5ycho");
 let functions = [
     crossGrid, curvedShapes, globe, lorenz, shapes, 
     smokeRings, stripes, stripesRandom, terrain, 
-    topography, traceColored, trunk
+    topography, trace, trunk
 ];
 
 function randomNumGenerator(min, max) {

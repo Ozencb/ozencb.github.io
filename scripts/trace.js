@@ -1,5 +1,5 @@
 
-const traceColored = (p) => {
+const trace = (p) => {
     let THE_SEED;
     let number_of_particles = 500;
     let number_of_particle_sets = 12;
@@ -84,4 +84,4 @@ const traceColored = (p) => {
     }
 };
 
-export default traceColored;
+export default trace;
