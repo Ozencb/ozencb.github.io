@@ -1,0 +1,31 @@
+{
+  "name": "ozenc-bilgili-portfolio",
+  "version": "1.0.0",
+  "description": "Özenç Bilgili's personal website",
+  "main": "index.js",
+  "scripts": {
+    "build": "rollup -c",
+    "watch": "rollup -c -w",
+    "uglify": "uglifyjs dist/index.min.js --compress --mangle -o dist/index.min.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ozencb/portfolio.git"
+  },
+  "author": "Özenç Bilgili",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Ozencb/portfolio/issues"
+  },
+  "homepage": "https://github.com/Ozencb/portfolio#readme",
+  "dependencies": {
+    "simplex-noise": "^2.4.0",
+    "uglify-es": "^3.3.9"
+  },
+  "devDependencies": {
+    "rollup": "1.1.2",
+    "rollup-plugin-node-resolve": "4.0.0",
+    "rollup-plugin-commonjs": "9.2.0"
+  },
+  "browser": "dist/index.min.js"
+}

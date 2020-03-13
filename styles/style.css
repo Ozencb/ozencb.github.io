@@ -1,0 +1,111 @@
+@font-face {
+    font-family: 'Lato', sans-serif;
+    src: url('../assets/Lato-Black.ttf') format("typeface")
+}
+
+:root {
+    --bg-color: black;
+    --primary-color: white;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--primary-color);
+    min-width: 300px;
+    min-height: 450px;
+}
+
+.container {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.name {
+    margin: 2rem 0 0 0;
+}
+
+.title-group {
+    margin: auto;
+}
+
+.title {
+    margin: 5rem 0 1rem 0;
+}
+
+.social-links svg {
+    height: 2rem;
+    width: 2rem;
+    margin: 0 1rem 0 0;
+}
+
+.social-links a,
+a:link,
+a:visited,
+a:hover {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.social-link {
+    fill: var(--primary-color);
+}
+
+.disable-select {
+    user-select: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .name {
+        font-size: 1.5rem;
+    }
+
+    .title {
+        font-size: 3rem;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    .name {
+        font-size: 1.5rem;
+    }
+
+    .title {
+        font-size: 4rem;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .name {
+        font-size: 2rem;
+    }
+
+    .title {
+        font-size: 5rem;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    .name {
+        font-size: 2rem;
+    }
+
+    .title {
+        font-size: 6rem;
+    }
+}
