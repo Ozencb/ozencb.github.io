@@ -25,4 +25,4 @@ const randomNumGenerator = (min, max) => {
 
 const visual = visuals[randomNumGenerator(0, visuals.length - 1)];
 
-new p5(mountains);
+new p5(visual);
