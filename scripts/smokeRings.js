@@ -1,6 +1,9 @@
-import getRandomColor from './getRandomColor';
+import getRandomPalette from './util/getRandomPalette';
 
 const smokeRings = (p) => {
+    console.log("Smoke Rings by Kjetil Midtgarden Golid.");
+    console.log("Link to project: https://github.com/kgolid/p5ycho/tree/master/smokerings");
+
     let ox = p.random(10000);
     let oy = p.random(10000);
     let oz = p.random(10000);
@@ -16,7 +19,7 @@ const smokeRings = (p) => {
         canvas.position(0, 0);
         canvas.style('z-index', '-1');
 
-        p.stroke(getRandomColor());
+        p.stroke(getRandomPalette());
         p.strokeWeight(2);
         p.smooth();
         p.noFill();

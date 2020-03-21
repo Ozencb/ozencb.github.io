@@ -1,4 +1,9 @@
+import getRandomPalette from './util/getRandomPalette';
+
 const trunk = (p) => {
+    console.log("Trunk by Kjetil Midtgarden Golid.");
+    console.log("Link to project: https://github.com/kgolid/p5ycho/tree/master/trunk");
+
     let rings = 15;
     let dim_init = 10;
     let dim_delta = 15;
@@ -13,6 +18,8 @@ const trunk = (p) => {
 
     let scale;
 
+    const strokeColor = getRandomPalette();
+
     p.setup = () => {
         let canvas = p.createCanvas(p.windowWidth, p.windowHeight);
 
@@ -21,7 +28,7 @@ const trunk = (p) => {
         canvas.style('z-index', '-1');
 
         p.strokeWeight(2);
-        p.stroke(100);
+        p.stroke(strokeColor);
         p.smooth();
         p.noFill();
     }
@@ -29,7 +36,7 @@ const trunk = (p) => {
     p.draw = () => {
         p.clear();
         p.translate(p.width / 2, p.height / 2);
-        scale = p.windowWidth < p.windowHeight ? p.windowWidth / 1000 : p.windowHeight / 1000;
+        scale = p.windowWidth < p.windowHeight ? p.windowWidth / 400 : p.windowHeight / 400;
         p.scale(scale);
 
         display();

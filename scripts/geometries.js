@@ -1,4 +1,7 @@
 const shapes = (p) => {
+    console.log("Geometries from P5js.");
+    console.log("Link to project: https://p5js.org/examples/3d-geometries.html");
+
     p.setup = () => {
         let canvas = p.createCanvas(p.windowWidth, p.windowHeight, p.WEBGL);
 

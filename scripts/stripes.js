@@ -1,35 +1,32 @@
-const stripes = (p) => {
-    let rows = 20;
-    let radius = 250;
-    let scale;
-    let min_length = 35;
-    let max_length = 85;
-    let space = 15;
+import getRandomPalette from './util/getRandomPalette';
+
+const stripesBW = (p) => {
+    console.log("StripesBW by Kjetil Midtgarden Golid.");
+    console.log("Link to project: https://github.com/kgolid/p5ycho/tree/master/stripesbw");
+
+    let rows = 30 * 2;
+    let radius = 350;
+    let min_length = 10;
+    let max_length = 100;
+    let space = 10;
     let stripes = [];
-    
-    const colors = [
-        p.color(142, 192, 124),
-        p.color(250, 189, 47),
-        p.color(251, 71, 44),
-        p.color(211, 134, 147),
-        p.color(49, 69, 80)
-    ];
+    let tick = 0;
+    let scale;
+    let randomColor = getRandomPalette();
 
     p.setup = () => {
         let canvas = p.createCanvas(p.windowWidth, p.windowHeight);
-        canvas.parent('stage');
 
+        canvas.parent('stage');
         canvas.position(0, 0);
         canvas.style('z-index', '-1');
 
-        p.stroke(255);
-        p.strokeWeight(10);
-
-
+        p.stroke(0);
+        p.noFill();
 
         for (let i = 0; i < rows; i++) {
             let ypos = ((i + .5) / rows) * (radius * 2) - radius;
-            let row_length = get_row_length(ypos);
+            let row_length = 2 * p.sqrt((radius * radius) - (ypos * ypos));
 
             add_stripe_row(ypos, row_length);
         }
@@ -38,71 +35,44 @@ const stripes = (p) => {
     p.draw = () => {
         p.clear();
         p.translate(p.width / 2, p.height / 2);
+        p.rotate(-p.PI / 5);
         scale = p.windowWidth < p.windowHeight ? p.windowWidth / 1000 : p.windowHeight / 1000;
         p.scale(scale);
 
-        for (let row in stripes) {
-            for (let s in stripes[row]) {
-                let stripe = stripes[row][s];
-                let length = get_row_length(stripe.y);
+        for (let s in stripes) {
+            let stripe = stripes[s];
 
-                if (!is_outside_circle(stripe, length)) {
-                    p.stroke(stripe.color);
-                    p.line(p.max((stripe.start + space), -length), stripe.y, p.min((stripe.end - space), length), stripe.y);
-                } else if (stripe.start > length) {
-                    stripes[row].splice(s, 1);
+            p.strokeWeight(12);
+            p.stroke(randomColor);
 
-                    let s_length = p.random(min_length, max_length);
-                    let end = stripes[row][0].start;
-                    let start = end - s_length;
-
-                    stripes[row].unshift({
-                        y: stripe.y,
-                        start: start,
-                        end: end,
-                        color: colors[p.floor(p.random(5))]
-                    });
-                }
-
-                let startx = p.constrain(stripe.start, -length, length);
-                let endx = p.constrain(stripe.end, -length, length);
-                let startspeed = p.sqrt(2) - p.sqrt(stripe.y * stripe.y + startx * startx) / radius;
-                let endspeed = p.sqrt(2) - p.sqrt(stripe.y * stripe.y + endx * endx) / radius;
-
-                stripe.start += startspeed;
-                stripe.end += endspeed;
-            }
+            p.strokeWeight(p.max(0, p.noise(5000 + stripe.start / 100, 5000 - tick / 160 + stripe.y / 100, tick / 200) * 20 - 6));
+            p.line(stripe.start, stripe.y, stripe.end, stripe.y);
         }
-    }
-
-    const get_row_length = (ypos) => {
-        if ((radius * radius) < (ypos * ypos)) return 0;
-        return p.sqrt((radius * radius) - (ypos * ypos));
-    }
-
-    const is_outside_circle = (stripe, length) => {
-        return stripe.end - space < -length || stripe.start + space > length;
+        tick++;
     }
 
     const add_stripe_row = (ypos, row_length) => {
-        let row = [];
         let length = p.random(min_length, max_length);
-        let start = -1000 + p.random(min_length, max_length);
+        let start = -.5 * row_length;
         let end = start + length;
 
-        while (end < -row_length) {
-            row.push({
+        while (end < row_length / 2 - space - min_length) {
+            stripes.push({
                 y: ypos,
                 start: start,
-                end: end,
-                color: colors[p.floor(p.random(5))]
+                end: end
             });
 
             length = p.random(min_length, max_length);
-            start = end;
+            start = end + space;
             end = start + length;
         }
-        stripes.push(row);
+
+        stripes.push({
+            y: ypos,
+            start: start,
+            end: row_length / 2
+        });
     }
 
     p.windowResized = () => {
@@ -110,4 +80,4 @@ const stripes = (p) => {
     }
 }
 
-export default stripes;
+export default stripesBW;

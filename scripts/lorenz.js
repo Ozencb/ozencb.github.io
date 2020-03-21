@@ -1,4 +1,6 @@
 const lorenz = (p) => {
+    console.log("Link to project: https://editor.p5js.org/Bixbite/sketches/S10aGSejQ");
+    
     const SIGMA = 10;
     const RHO = 28;
     const BETA = 8 / 3;

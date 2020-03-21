@@ -1,5 +1,11 @@
 const curvedShapes = (p) => {
+    console.log("Blobsicles by Kjetil Midtgarden Golid.");
+    console.log("Link to project: https://github.com/kgolid/p5ycho/tree/master/random_shapes");
+
+    let scale;
+
     let size;
+    const dim = 4;
 
     const colors = [p.color(255, 135, 95), p.color(255, 135, 95), p.color(255, 225, 95), p.color(75, 215, 225)];
 
@@ -13,7 +19,7 @@ const curvedShapes = (p) => {
         p.background(0);
         p.strokeWeight(3);
         p.blendMode(p.DARKEST);
-        p.frameRate(0.5);
+        p.frameRate(0.6);
         p.smooth();
     };
 
@@ -23,11 +29,11 @@ const curvedShapes = (p) => {
     };
 
     const display = () => {
-        size = p.windowWidth < p.windowHeight ? p.windowWidth / 3 : p.windowHeight / 3;
-        for (let i = 0; i < 1; i++) {
-            for (let j = 0; j < 1; j++) {
+        size = p.windowWidth < p.windowHeight ? p.windowWidth / 10 : p.windowHeight / 10;
+        for (let i = 0; i < dim; i++) {
+            for (let j = 0; j < dim; j++) {
                 p.fill(colors[p.floor(p.random(colors.length))]);
-                let pos = p.createVector(p.width * (i + 0.5), p.height * (j + 0.5));
+                let pos = p.createVector(p.width / dim * (i + 0.5), p.height / dim * (j + 0.5));
                 draw_shape(pos);
             }
         }
@@ -38,8 +44,11 @@ const curvedShapes = (p) => {
         let angle = p.PI * p.random(2);
 
         p.push();
+       
         p.translate(pos.x, pos.y);
-        p.scale((p.windowWidth + p.windowHeight) / 2000);
+        scale = p.windowWidth < p.windowHeight ? p.windowWidth / 1000 : p.windowHeight / 1000;
+        p.scale(scale);
+        
         p.rotate(angle);
 
         p.push();

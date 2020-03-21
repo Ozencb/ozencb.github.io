@@ -1,4 +1,7 @@
 const topography = (p) => {
+    console.log("Topography by Kjetil Midtgarden Golid.");
+    console.log("Link to project: https://github.com/kgolid/p5ycho/tree/master/topography");
+
     let rings = 15;
     let dim_init = 1;
 

@@ -1,4 +1,7 @@
 const crossGrid = (p) => {
+    console.log("Cross Grid by Kjetil Midtgarden Golid.");
+    console.log("Link to project: https://github.com/kgolid/p5ycho/tree/master/lab/cross-grid");
+
     let tick;
 
     let cross_dim = 10;

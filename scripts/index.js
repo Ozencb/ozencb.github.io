@@ -1,24 +1,22 @@
+import blobsicles from './blobsicles';
 import crossGrid from './crossGrid';
-import curvedShapes from './curvedShapes';
-import globe from './globe';
+import geometries from './geometries';
 import lorenz from './lorenz';
-import shapes from './shapes';
+import orbit from './orbit';
 import smokeRings from './smokeRings';
 import stripes from './stripes';
-import stripesRandom from './stripesRandom';
+import stripesColored from './stripesColored';
 import terrain from './terrain';
+import topographic from './topographic';
 import topography from './topography';
-import trace from './trace';
 import trunk from './trunk';
 
-console.log("Globe, shapes and lorenz functions are copied over from official P5js site.");
-console.log("The rest of the visuals are made by Kjetil Golid.");
-console.log("His work can be found here: https://github.com/kgolid/p5ycho");
+import mountains from './WIP/mountains';
+import orthoTerrain from './WIP/orthoTerrain';
 
 let visuals = [
-    crossGrid, curvedShapes, globe, lorenz, shapes,
-    smokeRings, stripes, stripesRandom, terrain,
-    topography, trace, trunk
+    blobsicles, crossGrid, geometries, lorenz, orbit, smokeRings,
+    stripes, stripesColored, terrain, topographic, topography, trunk
 ];
 
 const randomNumGenerator = (min, max) => {
@@ -27,4 +25,4 @@ const randomNumGenerator = (min, max) => {
 
 const visual = visuals[randomNumGenerator(0, visuals.length - 1)];
 
-new p5(visual);
+new p5(mountains);
