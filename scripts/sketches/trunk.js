@@ -1,4 +1,4 @@
-import getRandomPalette from './util/getRandomPalette';
+import getRandomPalette from '../utils/getRandomPalette';
 
 const trunk = (p) => {
     console.log("Trunk by Kjetil Midtgarden Golid.");

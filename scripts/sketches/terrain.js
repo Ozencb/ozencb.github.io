@@ -1,10 +1,11 @@
 import SimplexNoise from 'simplex-noise';
-import getRandomPalette from './util/getRandomPalette';
-import {
-    draw_poly
-} from './util/display';
 
-const topographic = (p) => {
+import {
+    draw_line,
+    draw_poly
+} from '../utils/display';
+
+const terrain = (p) => {
     console.log("Topographic by Kjetil Midtgarden Golid.");
     console.log("Link to project: https://github.com/kgolid/topographic");
 
@@ -13,30 +14,40 @@ const topographic = (p) => {
     let nHeight;
     let nWidth;
 
-    const noise_scale = 300;
-    const noise_persistence = 0.3;
-    const sigm = 2;
+    const noise_dim = 0.003;
+    const persistence = 0.4;
 
     let THE_SEED;
     let simplex;
     let noise_grid;
 
-    const palette = getRandomPalette(5);
-
-    const line_density = 50;
-
     const bgColor = '#000';
     const strokeColor = '#F7347A';
+    const seaColor = '#00FFFF';
 
-
-    p.setup = function () {
+    p.setup = () => {
         let canvas = p.createCanvas(p.windowWidth, p.windowHeight);
 
         canvas.parent('stage');
         canvas.position(0, 0);
         canvas.style('z-index', '-1');
-
     };
+
+    p.draw = () => {
+        p.clear();
+        p.background(bgColor);
+        p.scale(scale);
+
+        display();
+    }
+
+    const display = () => {
+        setValues();
+        p.noLoop();
+
+        process_grid(0.3, 10, 0.7 / 10, [seaColor]);
+        process_grid(-1, 120, 1.3 / 120, []);
+    }
 
     const setValues = () => {
         nHeight = (p.windowHeight / 5) / scale;
@@ -49,23 +60,8 @@ const topographic = (p) => {
         noise_grid = build_noise_grid();
     }
 
-    p.draw = () => {
-        p.clear();
-        p.scale(scale);
-        p.background(bgColor);
-
-        display();
-    }
-
-    const display = () => {
-        setValues();
-        p.noLoop();
-        process_grid(-1, 2 * line_density, 1 / line_density, palette);
-        p.pop();
-    }
-
     const process_grid = (init, steps, delta, fill_palette) => {
-        const thresholds = build_threshold_list(init, steps, delta, fill_palette);
+        const thresholds = build_threshold_list(init, steps, delta);
         const filled = fill_palette.length !== 0;
 
         p.push();
@@ -127,10 +123,10 @@ const topographic = (p) => {
         return grid;
     }
 
-    function build_threshold_list(init, steps, delta, colors) {
-        const thresholds = [];
+    const build_threshold_list = (init, steps, delta) => {
+        let thresholds = [];
         for (let t = 0; t <= steps; t++) {
-            let col = colors.length === 0 ? '#fff' : colors[p.floor(p.random(colors.length))];
+            let col = seaColor;
             thresholds.push({
                 val: init + t * delta,
                 col: col
@@ -139,29 +135,19 @@ const topographic = (p) => {
         return thresholds;
     }
 
-    function sum_octave(num_iterations, x, y) {
+    const sum_octave = (num_iterations, x, y) => {
         let noise = 0;
         let maxAmp = 0;
         let amp = 1;
-        let freq = 1 / noise_scale;
+        let freq = noise_dim;
 
         for (let i = 0; i < num_iterations; i++) {
-            noise += simplex.noise3D(x * freq, y * freq, i) * amp;
+            noise += simplex.noise2D(14.3 + x * freq, 5.71 + y * freq) * amp;
             maxAmp += amp;
-            amp *= noise_persistence;
+            amp *= persistence;
             freq *= 2;
         }
-        var output = apply_sigmoid(noise / maxAmp, sigm);
-        return output;
-    }
-
-    function apply_sigmoid(value, intensity) {
-        if (intensity === 0) return value;
-        return 2 * sigmoid(value * intensity) - 1;
-    }
-
-    function sigmoid(x) {
-        return 1 / (1 + p.exp(-x));
+        return noise / maxAmp;
     }
 
     p.windowResized = () => {
@@ -172,4 +158,4 @@ const topographic = (p) => {
     }
 }
 
-export default topographic;
+export default terrain;

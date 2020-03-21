@@ -1,4 +1,4 @@
-import getRandomPalette from './util/getRandomPalette';
+import getRandomPalette from '../utils/getRandomPalette';
 
 const stripesBW = (p) => {
     console.log("StripesBW by Kjetil Midtgarden Golid.");

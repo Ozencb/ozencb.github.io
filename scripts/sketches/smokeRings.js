@@ -1,4 +1,4 @@
-import getRandomPalette from './util/getRandomPalette';
+import getRandomPalette from '../utils/getRandomPalette';
 
 const smokeRings = (p) => {
     console.log("Smoke Rings by Kjetil Midtgarden Golid.");
