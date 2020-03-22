@@ -29,7 +29,7 @@ const curvedShapes = (p) => {
     };
 
     const display = () => {
-        size = p.windowWidth < p.windowHeight ? p.windowWidth / 10 : p.windowHeight / 10;
+        size = p.windowWidth < p.windowHeight ? p.windowWidth / 8 : p.windowHeight / 8;
         for (let i = 0; i < dim; i++) {
             for (let j = 0; j < dim; j++) {
                 p.fill(colors[p.floor(p.random(colors.length))]);
