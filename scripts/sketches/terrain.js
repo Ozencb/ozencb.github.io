@@ -14,7 +14,7 @@ const terrain = (p) => {
     let nHeight;
     let nWidth;
 
-    const noise_dim = 0.003;
+    const noise_dim = 0.002;
     const persistence = 0.4;
 
     let THE_SEED;
