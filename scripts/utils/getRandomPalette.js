@@ -1,11 +1,11 @@
 const getRandomPalette = (colorAmount = 1) => {
-    const letters = '0123456789ABC'; // Excluding DEF to prevent very getting brighter colours
+    const hex = '56789ABC'; // Exclude 1234 and DEF to prevent getting very dark or bright colours
     let palette = []
     
     for (let i = 0; i < colorAmount; i++) {
         let color = '#';
         for (let j = 0; j < 6; j++) {
-            color += letters[Math.floor(Math.random() * letters.length)];
+            color += hex[Math.floor(Math.random() * hex.length)];
         }
 
         if (colorAmount > 1){
