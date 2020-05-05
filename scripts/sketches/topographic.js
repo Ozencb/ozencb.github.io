@@ -13,7 +13,7 @@ const topographic = (p) => {
     let nHeight;
     let nWidth;
 
-    const noise_scale = 300;
+    const noise_scale = 350;
     const noise_persistence = 0.3;
     const sigm = 2;
 
@@ -21,7 +21,7 @@ const topographic = (p) => {
     let simplex;
     let noise_grid;
 
-    const palette = getRandomPalette(5);
+    const palette = getRandomPalette(2);
 
     const line_density = 50;
 
