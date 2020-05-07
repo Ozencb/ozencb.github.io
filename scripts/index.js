@@ -1,12 +1,10 @@
-// import blobsicles from './sketches/blobsicles';
 import crossGrid from './sketches/crossGrid';
+import cubeGrid from './sketches/cubeGrid';
 import geometries from './sketches/geometries';
 import lorenz from './sketches/lorenz';
 import mountains from './sketches/mountains';
 import orbit from './sketches/orbit';
 import smokeRings from './sketches/smokeRings';
-// import stripes from './sketches/stripes';
-// import stripesColored from './sketches/stripesColored';
 import terrain from './sketches/terrain';
 import topographic from './sketches/topographic';
 import topography from './sketches/topography';
@@ -14,7 +12,8 @@ import trunk from './sketches/trunk';
 
 
 let sketches = [
-    crossGrid, geometries, lorenz, mountains, orbit, smokeRings,
+    crossGrid, cubeGrid, geometries, lorenz, 
+    mountains, orbit, smokeRings,
     terrain, topographic, topography, trunk
 ];
 
