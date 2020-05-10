@@ -35,7 +35,6 @@ const terrain = (p) => {
 
     p.draw = () => {
         p.clear();
-        p.background(bgColor);
         p.scale(scale);
 
         display();

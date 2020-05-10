@@ -4,7 +4,7 @@ const crossGrid = (p) => {
 
     let tick;
 
-    let cross_dim = 10;
+    let cross_dim = 5;
     let grid_size = 25;
     let cell_dim = 25;
     let nheight = 1.5;
@@ -17,16 +17,15 @@ const crossGrid = (p) => {
         canvas.position(0, 0);
         canvas.style('z-index', '-1');
 
-        p.stroke(255);
+        p.stroke(50);
 
         tick = 0;
     };
 
     p.draw = () => {
-        p.background(0);
+        p.clear();
         p.translate(p.width / 2, p.height / 2);
-
-        p.scale(Math.min(p.windowWidth / 1000, p.windowHeight / 1000));
+        p.scale(Math.max(p.windowWidth / 500, p.windowHeight / 500));
 
         draw_grid();
 

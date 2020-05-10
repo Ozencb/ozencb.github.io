@@ -8,9 +8,7 @@ const smokeRings = (p) => {
     let oy = p.random(10000);
     let oz = p.random(10000);
 
-    let rings = 25;
-
-    let scale;
+    let rings = 15;
 
     p.setup = () => {
         let canvas = p.createCanvas(p.windowWidth, p.windowHeight);

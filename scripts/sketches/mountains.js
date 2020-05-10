@@ -24,17 +24,15 @@ const mountains = (p) => {
         canvas.position(0, 0);
         canvas.style('z-index', '-1');
 
-        p.pixelDensity(1);
-
         p.noFill();
         p.stroke(getRandomPalette());
+        p.strokeWeight(0.5);
 
         setPoints();
     }
 
     p.draw = () => {
-        p.background(0);
-
+        p.clear();
         p.scale(Math.min(p.windowWidth / 100, p.windowHeight / 100));
 
         noiseOffsetX += 0.05;

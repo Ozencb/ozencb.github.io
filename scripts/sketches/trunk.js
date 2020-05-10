@@ -4,7 +4,7 @@ const trunk = (p) => {
     console.log("Trunk by Kjetil Midtgarden Golid.");
     console.log("Link to project: https://github.com/kgolid/p5ycho/tree/master/trunk");
 
-    let rings = 15;
+    let rings = 10;
     let dim_init = 10;
     let dim_delta = 15;
 
@@ -12,9 +12,9 @@ const trunk = (p) => {
     let chaos_delta = 0.10;
     let chaos_mag = 25;
 
-    let ox = p.random(10000);
-    let oy = p.random(10000);
-    let oz = p.random(10000);
+    let ox = 0;
+    let oy = 0;
+    let oz = 0;
 
 
     const strokeColor = getRandomPalette();
@@ -35,7 +35,6 @@ const trunk = (p) => {
     p.draw = () => {
         p.clear();
         p.translate(p.width / 2, p.height / 2);
-
         p.scale(Math.max(p.windowWidth / 400, p.windowHeight / 400));
 
         display();

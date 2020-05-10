@@ -2,6 +2,9 @@ const globe = (p) => {
     console.log("Orbit Control from P5js.");
     console.log("Link to project: https://p5js.org/examples/3d-orbit-control.html");
     
+    let radius = 250;
+    let size = 10;
+
     p.setup = () => {
         let canvas = p.createCanvas(p.windowWidth, p.windowHeight, p.WEBGL);
 
@@ -11,13 +14,9 @@ const globe = (p) => {
     }
 
     p.draw = () => {
-        let radius = 500;
-        let size = 25;
-
-        p.background(0);
-        p.normalMaterial();
-
+        p.clear();
         p.scale(Math.min(p.windowWidth / 1000, p.windowHeight / 1000));
+        p.normalMaterial();
 
         p.rotateZ(p.frameCount * 0.002);
         p.rotateX(p.frameCount * 0.002);

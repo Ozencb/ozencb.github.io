@@ -8,7 +8,7 @@ const donut = (p) => {
     }
 
     p.draw = () => {
-        p.background(0);
+        p.clear();
         p.normalMaterial();
 
         p.scale(Math.max(p.windowWidth / 50, p.windowHeight / 50));
@@ -18,7 +18,7 @@ const donut = (p) => {
         p.rotateZ(p.frameCount * 0.01);
         p.rotateX(p.frameCount * 0.01);
         p.rotateY(p.frameCount * 0.01);
-        p.torus(75, 25);
+        p.torus(75, 35);
         p.pop();
     }
 

@@ -17,7 +17,7 @@ const topography = (p) => {
     let coorX = p.randomGaussian(p.windowWidth / 2, 250);
     let coorY = p.randomGaussian(p.windowHeight / 2, 250);
 
-    let cols = ['#fa4', '#fb3', '#ec4', '#dd5', '#ada', '#9bc'];
+    let cols = ['#996628', '#B28223', '#A68E2F', '#9A9A3B', '#769A76', '#6B828E'];
 
     p.setup = () => {
         let canvas = p.createCanvas(p.windowWidth, p.windowHeight);
@@ -36,11 +36,11 @@ const topography = (p) => {
     };
 
     p.draw = () => {
+        p.clear();
         p.push();
         p.translate(coorX, coorY);
         p.scale((p.windowWidth + p.windowHeight) / 1500);
 
-        p.clear();
         display();
         p.pop();
         display_crosses();
@@ -49,8 +49,7 @@ const topography = (p) => {
 
     const display = () => {
         for (let i = 0; i < rings; i++) {
-            if (i % 6 == 0) p.strokeWeight(2);
-            else p.strokeWeight(1);
+            p.strokeWeight(i % 6 == 0 ? 2 : 1);
 
             p.fill(cols[p.floor(i / rings * cols.length)]);
 

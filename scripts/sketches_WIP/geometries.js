@@ -11,7 +11,7 @@ const shapes = (p) => {
     }
 
     p.draw = () => {
-        p.background(0);
+        p.clear();
         p.normalMaterial();
 
         p.scale((p.windowWidth + p.windowHeight) / 2000);

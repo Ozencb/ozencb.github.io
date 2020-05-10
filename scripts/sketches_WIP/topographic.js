@@ -52,7 +52,6 @@ const topographic = (p) => {
     p.draw = () => {
         p.clear();
         p.scale(scale);
-        p.background(bgColor);
 
         display();
     }

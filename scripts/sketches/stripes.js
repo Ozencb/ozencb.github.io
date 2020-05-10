@@ -4,14 +4,13 @@ const stripesBW = (p) => {
     console.log("StripesBW by Kjetil Midtgarden Golid.");
     console.log("Link to project: https://github.com/kgolid/p5ycho/tree/master/stripesbw");
 
-    let rows = 30 * 2;
-    let radius = 350;
+    let rows = 30;
+    let radius = 250;
     let min_length = 10;
-    let max_length = 100;
-    let space = 10;
+    let max_length = 50;
+    let space = 25;
     let stripes = [];
     let tick = 0;
-    let scale;
     let randomColor = getRandomPalette();
 
     p.setup = () => {
@@ -35,14 +34,14 @@ const stripesBW = (p) => {
     p.draw = () => {
         p.clear();
         p.translate(p.width / 2, p.height / 2);
-        p.rotate(-p.PI / 5);
-        scale = p.windowWidth < p.windowHeight ? p.windowWidth / 1000 : p.windowHeight / 1000;
-        p.scale(scale);
+        p.rotate(-p.PI / 5);        
+        p.scale(Math.max(p.windowWidth / 250, p.windowHeight / 250));
+
 
         for (let s in stripes) {
             let stripe = stripes[s];
 
-            p.strokeWeight(12);
+            p.strokeWeight(0.2);
             p.stroke(randomColor);
 
             p.strokeWeight(p.max(0, p.noise(5000 + stripe.start / 100, 5000 - tick / 160 + stripe.y / 100, tick / 200) * 20 - 6));

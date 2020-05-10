@@ -26,10 +26,8 @@ const lorenz = (p) => {
     }
 
     p.draw = () => {
+        p.clear();
         p.scale(Math.min(p.windowWidth / 50, p.windowHeight / 50));
-
-        p.background(0);
-
         p.rotateZ(p.frameCount * 0.002);
 
         let delta = p.createVector(
