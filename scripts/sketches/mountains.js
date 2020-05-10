@@ -16,8 +16,6 @@ const mountains = (p) => {
     let noiseOffsetX = 0;
     let noiseOffsetY = 0;
 
-    let scale;
-
 
     p.setup = () => {
         canvas = p.createCanvas(p.windowWidth, p.windowHeight);

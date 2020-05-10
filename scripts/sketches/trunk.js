@@ -16,7 +16,6 @@ const trunk = (p) => {
     let oy = p.random(10000);
     let oz = p.random(10000);
 
-    let scale;
 
     const strokeColor = getRandomPalette();
 

@@ -12,7 +12,6 @@ const lorenz = (p) => {
     let point;
     let path = [];
 
-    let scale;
 
     p.setup = () => {
         let canvas = p.createCanvas(p.windowWidth, p.windowHeight, p.WEBGL);

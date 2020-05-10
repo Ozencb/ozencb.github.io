@@ -1,8 +1,6 @@
 const globe = (p) => {
     console.log("Orbit Control from P5js.");
     console.log("Link to project: https://p5js.org/examples/3d-orbit-control.html");
-
-    let scale;
     
     p.setup = () => {
         let canvas = p.createCanvas(p.windowWidth, p.windowHeight, p.WEBGL);
