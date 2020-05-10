@@ -26,7 +26,7 @@ const mountains = (p) => {
         canvas.position(0, 0);
         canvas.style('z-index', '-1');
 
-        p.pixelDensity(2);
+        p.pixelDensity(1);
 
         p.noFill();
         p.stroke(getRandomPalette());
@@ -37,8 +37,7 @@ const mountains = (p) => {
     p.draw = () => {
         p.background(0);
 
-        scale = p.windowWidth < p.windowHeight ? p.windowWidth / 150 : p.windowHeight / 150;
-        p.scale(scale);
+        p.scale(Math.min(p.windowWidth / 100, p.windowHeight / 100));
 
         noiseOffsetX += 0.05;
         noiseOffsetY = 0;

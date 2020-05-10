@@ -27,8 +27,7 @@ const lorenz = (p) => {
     }
 
     p.draw = () => {
-        scale = p.windowWidth < p.windowHeight ? p.windowWidth / 100 : p.windowHeight / 100;
-        p.scale(scale);
+        p.scale(Math.min(p.windowWidth / 50, p.windowHeight / 50));
 
         p.background(0);
 

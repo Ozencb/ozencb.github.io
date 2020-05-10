@@ -36,8 +36,8 @@ const trunk = (p) => {
     p.draw = () => {
         p.clear();
         p.translate(p.width / 2, p.height / 2);
-        scale = p.windowWidth < p.windowHeight ? p.windowWidth / 400 : p.windowHeight / 400;
-        p.scale(scale);
+
+        p.scale(Math.max(p.windowWidth / 400, p.windowHeight / 400));
 
         display();
     }

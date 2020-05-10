@@ -9,7 +9,6 @@ const crossGrid = (p) => {
     let cell_dim = 25;
     let nheight = 1.5;
     let nzoom = 25;
-    let scale;
 
     p.setup = () => {
         let canvas = p.createCanvas(p.windowWidth, p.windowHeight);
@@ -27,8 +26,7 @@ const crossGrid = (p) => {
         p.background(0);
         p.translate(p.width / 2, p.height / 2);
 
-        scale = p.windowWidth < p.windowHeight ? p.windowWidth / 1000 : p.windowHeight / 1000;
-        p.scale(scale);
+        p.scale(Math.min(p.windowWidth / 1000, p.windowHeight / 1000));
 
         draw_grid();
 

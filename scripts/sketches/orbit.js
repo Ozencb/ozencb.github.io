@@ -19,8 +19,7 @@ const globe = (p) => {
         p.background(0);
         p.normalMaterial();
 
-        scale = p.windowWidth < p.windowHeight ? p.windowWidth / 1000 : p.windowHeight / 1000;
-        p.scale(scale);
+        p.scale(Math.min(p.windowWidth / 1000, p.windowHeight / 1000));
 
         p.rotateZ(p.frameCount * 0.002);
         p.rotateX(p.frameCount * 0.002);

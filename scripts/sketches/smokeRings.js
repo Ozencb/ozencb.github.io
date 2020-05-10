@@ -28,9 +28,8 @@ const smokeRings = (p) => {
     p.draw = () => {
         p.clear();
         p.translate(p.width / 2, p.height / 2);
-        scale = p.windowWidth < p.windowHeight ? p.windowWidth / 1000 : p.windowHeight / 1000;
-        p.scale(scale);
-
+        
+        p.scale(Math.max(p.windowWidth / 500, p.windowHeight / 500));
 
         display();
     }

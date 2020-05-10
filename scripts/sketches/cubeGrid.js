@@ -29,6 +29,8 @@ const cubeGrid = (p) => {
     }
 
     p.draw = () => {
+        p.scale(Math.min(p.windowWidth / 1000, p.windowHeight / 1000));
+      
         p.background(0);
 
         p.stroke(240, 20);

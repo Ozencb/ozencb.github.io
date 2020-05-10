@@ -1,5 +1,6 @@
 import crossGrid from './sketches/crossGrid';
 import cubeGrid from './sketches/cubeGrid';
+import donut from './sketches/donut';
 import geometries from './sketches/geometries';
 import lorenz from './sketches/lorenz';
 import mountains from './sketches/mountains';
@@ -12,7 +13,7 @@ import trunk from './sketches/trunk';
 
 
 let sketches = [
-    crossGrid, cubeGrid, geometries, lorenz, 
+    crossGrid, cubeGrid, donut, geometries, lorenz, 
     mountains, orbit, smokeRings,
     terrain, topographic, topography, trunk
 ];
