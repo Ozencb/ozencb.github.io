@@ -21,4 +21,4 @@ const randomNumGenerator = (min, max) => {
 
 const sketch = sketches[randomNumGenerator(0, sketches.length - 1)];
 
-new p5(donut);
+new p5(sketch);
