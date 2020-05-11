@@ -4,11 +4,11 @@ const smokeRings = (p) => {
     console.log("Smoke Rings by Kjetil Midtgarden Golid.");
     console.log("Link to project: https://github.com/kgolid/p5ycho/tree/master/smokerings");
 
-    let ox = p.random(10000);
-    let oy = p.random(10000);
-    let oz = p.random(10000);
+    let ox = 0;
+    let oy = 0;
+    let oz = 0;
 
-    let rings = 15;
+    let rings = 1;
 
     p.setup = () => {
         let canvas = p.createCanvas(p.windowWidth, p.windowHeight);
@@ -17,8 +17,7 @@ const smokeRings = (p) => {
         canvas.position(0, 0);
         canvas.style('z-index', '-1');
 
-        p.stroke(getRandomPalette());
-        p.strokeWeight(2);
+        p.strokeWeight(1);
         p.smooth();
         p.noFill();
     }
@@ -27,7 +26,7 @@ const smokeRings = (p) => {
         p.clear();
         p.translate(p.width / 2, p.height / 2);
         
-        p.scale(Math.max(p.windowWidth / 500, p.windowHeight / 500));
+        p.scale(Math.max(p.windowWidth / 600, p.windowHeight / 600));
 
         display();
     }
@@ -36,12 +35,13 @@ const smokeRings = (p) => {
         ox += 0.01;
         oy += 0.01;
         oz += 0.007;
+        p.stroke(getRandomPalette());
 
         for (let i = 0; i < rings; i++) {
             p.beginShape();
-            for (let angle = 0; angle < 360; angle += 3) {
+            for (let angle = 0; angle < 360; angle += 2) {
                 let radian = p.radians(angle);
-                let radius = 250 + p.map(getNoise(radian, 0.35, 0.02 * i), 0, 1, -150, 150);
+                let radius = 250 + p.map(getNoise(radian, 0.15, 1 * i), 0, 1, -150, 150);
                 p.vertex(radius * p.cos(radian), radius * p.sin(radian));
             }
             p.endShape(p.CLOSE);

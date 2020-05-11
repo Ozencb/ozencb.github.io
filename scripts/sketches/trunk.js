@@ -16,9 +16,6 @@ const trunk = (p) => {
     let oy = 0;
     let oz = 0;
 
-
-    const strokeColor = getRandomPalette();
-
     p.setup = () => {
         let canvas = p.createCanvas(p.windowWidth, p.windowHeight);
 
@@ -26,8 +23,8 @@ const trunk = (p) => {
         canvas.position(0, 0);
         canvas.style('z-index', '-1');
 
-        p.strokeWeight(2);
-        p.stroke(strokeColor);
+        p.strokeWeight(0.5);
+        p.stroke(getRandomPalette());
         p.smooth();
         p.noFill();
     }
@@ -35,19 +32,19 @@ const trunk = (p) => {
     p.draw = () => {
         p.clear();
         p.translate(p.width / 2, p.height / 2);
-        p.scale(Math.max(p.windowWidth / 400, p.windowHeight / 400));
+        p.scale(Math.max(p.windowWidth / 250, p.windowHeight / 250));
 
         display();
     }
 
     const display = () => {
-        oy -= 0.02;
-        oz += 0.01;
+        oy -= 0.04;
+        oz += 0.02;
 
         for (let i = 0; i < rings; i++) {
             p.beginShape();
 
-            for (let angle = 0; angle < 360; angle++) {
+            for (let angle = 0; angle < 360; angle += 3) {
                 let radian = p.radians(angle);
                 let radius = (chaos_mag * getNoiseWithTime(radian, chaos_delta * i + chaos_init, oz)) + (dim_delta * i + dim_init);
                 p.vertex(radius * p.cos(radian), radius * p.sin(radian));
