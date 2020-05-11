@@ -1,18 +1,12 @@
 import getRandomPalette from '../utils/getRandomPalette';
 
-const smokeRings = (p) => {
-    console.log("Smoke Rings by Kjetil Midtgarden Golid.");
-    console.log("Link to project: https://github.com/kgolid/p5ycho/tree/master/smokerings");
-
+const rings = (p) => {
     let ox = 0;
     let oy = 0;
     let oz = 0;
 
-    let rings = 1;
-
     p.setup = () => {
         let canvas = p.createCanvas(p.windowWidth, p.windowHeight);
-
         canvas.parent('stage');
         canvas.position(0, 0);
         canvas.style('z-index', '-1');
@@ -25,19 +19,19 @@ const smokeRings = (p) => {
     p.draw = () => {
         p.clear();
         p.translate(p.width / 2, p.height / 2);
-        
         p.scale(Math.max(p.windowWidth / 600, p.windowHeight / 600));
 
         display();
     }
 
     const display = () => {
+        p.stroke(getRandomPalette());
+        
         ox += 0.01;
         oy += 0.01;
-        oz += 0.007;
-        p.stroke(getRandomPalette());
+        oz += 0.01;
 
-        for (let i = 0; i < rings; i++) {
+        for (let i = 0; i < 1; i++) {
             p.beginShape();
             for (let angle = 0; angle < 360; angle += 2) {
                 let radian = p.radians(angle);
@@ -50,7 +44,6 @@ const smokeRings = (p) => {
 
     const getNoise = (radian, dim, time) => {
         let r = radian % p.TWO_PI;
-
         if (r < 0.0) {
             r += p.TWO_PI;
         }
@@ -62,4 +55,4 @@ const smokeRings = (p) => {
     }
 }
 
-export default smokeRings;
+export default rings;

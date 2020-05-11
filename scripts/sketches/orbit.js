@@ -3,7 +3,7 @@ const globe = (p) => {
     console.log("Link to project: https://p5js.org/examples/3d-orbit-control.html");
     
     let radius = 1000;
-    let size = 2;
+    let size = 3;
 
     p.setup = () => {
         let canvas = p.createCanvas(p.windowWidth, p.windowHeight, p.WEBGL);

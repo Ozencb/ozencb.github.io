@@ -1,5 +1,5 @@
 const getRandomPalette = (colorAmount = 1) => {
-    const hex = '56789ABC'; // Exclude 1234 and DEF to prevent getting very dark or bright colours
+    const hex = '23456789AB'; // Exclude 1234 and DEF to prevent getting very dark or bright colours
     let palette = []
     
     for (let i = 0; i < colorAmount; i++) {

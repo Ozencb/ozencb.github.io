@@ -1,9 +1,46 @@
-
-.social-links svg {
-    height: 2rem;
-    width: 2rem;
-    margin: 0 1rem 0 0;
+@font-face {
+    font-family: 'Metropolis';
+    src: local('Metropolis-Medium'), url('../assets/Metropolis-Medium.otf');
+    font-weight: 500;
+    font-style: normal;
 }
+
+@font-face {
+    font-family: 'Metropolis';
+    src: local('Metropolis-Bold'), url('../assets/Metropolis-Bold.otf');
+    font-weight: 700;
+    font-style: normal;
+}
+
+:root {
+    --bg-color: #FFF;
+    --primary-color: #171718;
+}
+
+body {
+    font-family: 'Metropolis', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--primary-color);
+    min-width: 300px;
+    min-height: 450px;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    width: 90vw;
+    margin: 0 auto;
+}
+
+.WIP {
+    line-height: 1.1;
+    font-size: 10rem;
+    margin: 5rem 0 0 0;
+    word-wrap: break-word;
+}
+
+
+
 
 .social-links a,
 a:link,
@@ -23,4 +60,4 @@ a:hover {
     -khtml-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-  }
+}
