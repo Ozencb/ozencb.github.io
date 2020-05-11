@@ -1,0 +1,26 @@
+
+.social-links svg {
+    height: 2rem;
+    width: 2rem;
+    margin: 0 1rem 0 0;
+}
+
+.social-links a,
+a:link,
+a:visited,
+a:hover {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.social-link {
+    fill: var(--primary-color);
+}
+
+.disable-select {
+    user-select: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+  }

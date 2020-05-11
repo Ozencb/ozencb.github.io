@@ -5,14 +5,12 @@ import lorenz from './sketches/lorenz';
 import mountains from './sketches/mountains';
 import orbit from './sketches/orbit';
 import smokeRings from './sketches/smokeRings';
-import stripes from './sketches/stripes';
 import terrain from './sketches/terrain';
 import topography from './sketches/topography';
-import trunk from './sketches/trunk';
 
 let sketches = [
     crossGrid, cubeGrid, donut, lorenz, mountains, 
-    orbit, smokeRings, stripes, terrain, topography, trunk
+    orbit, smokeRings, terrain, topography,
 ];
 
 const randomNumGenerator = (min, max) => {
