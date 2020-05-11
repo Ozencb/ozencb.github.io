@@ -1,28 +1,23 @@
 @font-face {
   font-family: 'Metropolis';
-  src: local('Metropolis-Medium'), url('../assets/Metropolis-Medium.otf');
-  font-weight: 500;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Metropolis';
-  src: local('Metropolis-Bold'), url('../assets/Metropolis-Bold.otf');
+  src: local('Metropolis-Bold'), url('../assets/fonts/Metropolis-Bold.otf');
   font-weight: 700;
   font-style: normal;
 }
 
 :root {
   --bg-color: #171718;
-  --primary-color: rgb(228, 224, 215);
+  --primary-color: #e4e0d7;
 }
 
 body {
   font-family: 'Metropolis', sans-serif;
+  font-weight: 700;
   background-color: var(--bg-color);
   color: var(--primary-color);
   min-width: 300px;
   min-height: 450px;
+
 }
 
 main {
@@ -31,6 +26,7 @@ main {
   width: 90vw;
   margin: 0 auto;
 }
+
 
 .name {
   line-height: 0.9;

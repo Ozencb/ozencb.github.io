@@ -8,8 +8,9 @@ import ring from './sketches/ring';
 import terrain from './sketches/terrain';
 import topography from './sketches/topography';
 
-let sketches = [
-    crossGrid, cubeGrid, donut, lorenz, mountains, 
+
+const sketches = [
+    crossGrid, cubeGrid, donut, lorenz, mountains,
     orbit, ring, terrain, topography,
 ];
 
