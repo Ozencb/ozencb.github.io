@@ -191,6 +191,7 @@ main {
 
 .title {
     margin: 8rem 0 1rem 0;
+    line-height: 1;
 }
 
 .social-links svg {

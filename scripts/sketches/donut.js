@@ -10,14 +10,13 @@ const donut = (p) => {
     p.draw = () => {
         p.clear();
         p.normalMaterial();
-
         p.scale(Math.max(p.windowWidth / 50, p.windowHeight / 50));
 
         p.translate(0, 0, 0);
         p.push();
-        p.rotateZ(p.frameCount * 0.01);
-        p.rotateX(p.frameCount * 0.01);
-        p.rotateY(p.frameCount * 0.01);
+        p.rotateZ(p.frameCount * 0.003);
+        p.rotateX(p.frameCount * 0.001);
+        p.rotateY(p.frameCount * 0.007);
         p.torus(75, 35);
         p.pop();
     }

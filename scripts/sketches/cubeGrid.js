@@ -72,9 +72,6 @@ const cubeGrid = (p) => {
 
     p.windowResized = () => {
         p.resizeCanvas(p.windowWidth, p.windowHeight);
-        setTimeout(() => {
-            p.redraw();
-        }, 1000);
     }
 }
 
