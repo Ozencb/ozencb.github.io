@@ -17,7 +17,7 @@ const stripesBW = (p) => {
         let canvas = p.createCanvas(p.windowWidth, p.windowHeight);
 
         canvas.parent('stage');
-        canvas.position(0, 0);
+        canvas.elt.style.position = "fixed";
         canvas.style('z-index', '-1');
 
         p.stroke(0);

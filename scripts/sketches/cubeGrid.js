@@ -7,6 +7,7 @@ const cubeGrid = (p) => {
 
         canvas.parent('stage');
         canvas.position(0, 0);
+        canvas.elt.style.position = "fixed";
         canvas.style('z-index', '-1');
 
         let cube = 150;

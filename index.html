@@ -13,14 +13,30 @@
     <link rel="stylesheet" href="./styles/index.css">
 </head>
 
-<body>
-    <main>
-        <div id="stage"></div>
-        <h1 class="disable-select name">Özenç<br>Bilgili</h1>
-        <div class="title-group">
-            <h1 class="disable-select title">Web<br>Developer</h1>
-            <a class="link" target="_self" href="about.html">More about me</a>
-        </div>
+<body class="colours-normal">
+    <main id="main" class="main disable-select" dir="ltr">
+        <section id="intro" class="intro">
+            <div id="stage"></div>
+            <h1 class="name">Özenç<br>Bilgili</h1>
+            <h1 class="title">Web<br>Developer</h1>
+            <a class="scroll-arrow" target="_self" href="#about">
+                <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M11.0001 3.67157L13.0001 3.67157L13.0001 16.4999L16.2426 13.2574L17.6568 14.6716L12 20.3284L6.34314 14.6716L7.75735 13.2574L11.0001 16.5001L11.0001 3.67157Z"
+                        fill="currentColor" />
+                </svg>
+            </a>
+        </section>
+        <section id="about" class="about">
+            <h2>Content</h2>
+            <a target="_self" href="#intro">
+                <svg class="scroll-arrow" width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path class="svg-fill-normal" id="svg-path"
+                        d="M11.0001 3.67157L13.0001 3.67157L13.0001 16.4999L16.2426 13.2574L17.6568 14.6716L12 20.3284L6.34314 14.6716L7.75735 13.2574L11.0001 16.5001L11.0001 3.67157Z"
+                        fill="currentColor" />
+                </svg>
+            </a>
+        </section>
     </main>
 </body>
 
