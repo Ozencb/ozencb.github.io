@@ -23,7 +23,6 @@ const sketch = sketches[randomNumGenerator(0, sketches.length - 1)];
 new p5(sketch);
 
 
-
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -36,22 +35,22 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 const scrollEvent = () => {
     const main = document.querySelector('#main');
-    const intro = document.querySelector('#intro');
-    const about = document.querySelector('#about');
+    
+    console.log("event triggered");
+
     const stage = document.querySelector('#stage');
-    const arrow = document.querySelector('.scroll-arrow');
+    const arrow = document.querySelector('#scroll-arrow');
     const svgPath = document.querySelector('#svg-path');
 
-    if (body.screenTop > 20) {
+    if (main.scrollTop > 50) {
         arrow.classList.add('invisible');
         stage.classList.add('invisible');
-
     } else {
         arrow.classList.remove('invisible');
         stage.classList.remove('invisible');
     }
 
-    if (window.scrollY > window.innerHeight / 2) {
+    if (main.scrollTop > window.innerHeight / 2) {
         document.body.classList.remove('colours-normal');
         document.body.classList.add('colours-inverted');
         svgPath.classList.remove('svg-fill-normal');
@@ -64,5 +63,4 @@ const scrollEvent = () => {
     }
 }
 
-
-window.addEventListener('scroll', scrollEvent);
+main.addEventListener('scroll', scrollEvent);
