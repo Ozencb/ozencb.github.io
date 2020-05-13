@@ -2,6 +2,7 @@ import SimplexNoise from 'simplex-noise';
 
 import {
   drawLine,
+  drawPoly,
 } from '../utils/display';
 
 const terrain = (p5) => {
@@ -10,8 +11,6 @@ const terrain = (p5) => {
 
   const p = p5;
 
-  const steps = 100;
-  const delta = 1.3 / steps;
   const cellDim = 5;
   const scale = 2;
   let nHeight;
@@ -25,6 +24,7 @@ const terrain = (p5) => {
   let noiseGrid;
 
   const strokeColor = '#F7347A';
+  const seaColor = '#000000';
 
   p.setup = () => {
     const canvas = p.createCanvas(p.windowWidth, p.windowHeight);
@@ -78,17 +78,19 @@ const terrain = (p5) => {
     noiseGrid = buildNoiseGrid();
   };
 
-  const buildThresholdList = () => {
+  const buildThresholdList = (init, steps, delta) => {
     const thresholds = [];
     for (let t = 0; t <= steps; t += 1) {
+      const col = seaColor;
       thresholds.push({
-        val: -1 + t * delta,
+        val: init + t * delta,
+        col,
       });
     }
     return thresholds;
   };
 
-  const processCell = (x, y, thresholds) => {
+  const processCell = (x, y, filled, thresholds, delta) => {
     const v1 = getNoise(x, y);
     const v2 = getNoise(x + 1, y);
     const v3 = getNoise(x + 1, y + 1);
@@ -106,20 +108,27 @@ const terrain = (p5) => {
       const b3 = v3 > t.val ? 2 : 0;
       const b4 = v4 > t.val ? 1 : 0;
 
-      const id = (b1 + b2 + b3 + b4);
+      const id = b1 + b2 + b3 + b4;
 
-      drawLine(p, id, v1, v2, v3, v4, t.val, cellDim);
+      if (filled) {
+        p.fill(t.col);
+        drawPoly(p, id, v1, v2, v3, v4, t.val, cellDim);
+      } else {
+        p.stroke(strokeColor);
+        drawLine(p, id, v1, v2, v3, v4, t.val, cellDim);
+      }
     });
   };
 
-  const processGrid = () => {
-    const thresholds = buildThresholdList();
+  const processGrid = (init, steps, delta, fillPalette) => {
+    const thresholds = buildThresholdList(init, steps, delta);
+    const filled = fillPalette.length !== 0;
 
     p.push();
     for (let y = 0; y < nHeight; y += 1) {
       p.push();
       for (let x = 0; x < nWidth; x += 1) {
-        processCell(x, y, thresholds, delta);
+        processCell(x, y, filled, thresholds, delta);
         p.translate(cellDim, 0);
       }
       p.pop();
@@ -132,16 +141,15 @@ const terrain = (p5) => {
     setValues();
     p.noLoop();
 
-    processGrid();
+    processGrid(0.3, 10, 0.7 / 10, [seaColor]);
+    processGrid(-1, 120, 1.3 / 120, []);
   };
 
   p.draw = () => {
     p.clear();
     p.scale(scale);
 
-    console.time('initialized in:');
     display();
-    console.timeEnd('initialized in:');
   };
 
   p.windowResized = () => {

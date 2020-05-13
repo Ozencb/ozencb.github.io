@@ -49,12 +49,11 @@ main.addEventListener('scroll', () => {
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   anchor.addEventListener('click', (e) => {
     e.preventDefault();
-    document.querySelector(this.getAttribute('href')).scrollIntoView({
+    e.target.scrollIntoView({
       behavior: 'smooth',
     });
   });
 });
-
 
 const sketches = [
   crossGrid, cubeGrid, donut, lorenz, mountains,

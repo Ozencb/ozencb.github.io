@@ -16,7 +16,6 @@ html, body {
 }
 
 body {
-  z-index: 0;
   font-family: 'Metropolis', sans-serif;
   font-weight: 700;
   min-width: 300px;
