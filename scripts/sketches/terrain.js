@@ -2,17 +2,18 @@ import SimplexNoise from 'simplex-noise';
 
 import {
   drawLine,
-  drawPoly,
 } from '../utils/display';
 
 const terrain = (p5) => {
-  console.log('Topographic by Kjetil Midtgarden Golid.');
-  console.log('Link to project: https://github.com/kgolid/topographic');
+  console.info('Topographic by Kjetil Midtgarden Golid.');
+  console.info('Link to project: https://github.com/kgolid/topographic');
 
   const p = p5;
 
+  const steps = 100;
+  const delta = 1.3 / steps;
   const cellDim = 5;
-  const scale = 1;
+  const scale = 2;
   let nHeight;
   let nWidth;
 
@@ -24,7 +25,6 @@ const terrain = (p5) => {
   let noiseGrid;
 
   const strokeColor = '#F7347A';
-  const seaColor = '#00FFFF';
 
   p.setup = () => {
     const canvas = p.createCanvas(p.windowWidth, p.windowHeight);
@@ -33,6 +33,9 @@ const terrain = (p5) => {
     canvas.position(0, 0);
     canvas.elt.style.position = 'fixed';
     canvas.style('z-index', '-1');
+
+    p.stroke(strokeColor);
+    p.strokeWeight(0.5);
   };
 
   const getNoise = (x, y) => noiseGrid[y][x];
@@ -75,19 +78,17 @@ const terrain = (p5) => {
     noiseGrid = buildNoiseGrid();
   };
 
-  const buildThresholdList = (init, steps, delta) => {
+  const buildThresholdList = () => {
     const thresholds = [];
     for (let t = 0; t <= steps; t += 1) {
-      const col = seaColor;
       thresholds.push({
-        val: init + t * delta,
-        col,
+        val: -1 + t * delta,
       });
     }
     return thresholds;
   };
 
-  const processCell = (x, y, filled, thresholds, delta) => {
+  const processCell = (x, y, thresholds) => {
     const v1 = getNoise(x, y);
     const v2 = getNoise(x + 1, y);
     const v3 = getNoise(x + 1, y + 1);
@@ -99,33 +100,26 @@ const terrain = (p5) => {
       (t) => t.val >= min - delta && t.val <= max,
     );
 
-    for (const t of relevantThresholds) {
+    Object.values(relevantThresholds).forEach((t) => {
       const b1 = v1 > t.val ? 8 : 0;
       const b2 = v2 > t.val ? 4 : 0;
       const b3 = v3 > t.val ? 2 : 0;
       const b4 = v4 > t.val ? 1 : 0;
 
-      const id = b1 + b2 + b3 + b4;
+      const id = (b1 + b2 + b3 + b4);
 
-      if (filled) {
-        p.fill(t.col);
-        drawPoly(p, id, v1, v2, v3, v4, t.val, cellDim);
-      } else {
-        p.stroke(strokeColor);
-        drawLine(p, id, v1, v2, v3, v4, t.val, cellDim);
-      }
-    }
+      drawLine(p, id, v1, v2, v3, v4, t.val, cellDim);
+    });
   };
 
-  const processGrid = (init, steps, delta, fillPalette) => {
-    const thresholds = buildThresholdList(init, steps, delta);
-    const filled = fillPalette.length !== 0;
+  const processGrid = () => {
+    const thresholds = buildThresholdList();
 
     p.push();
     for (let y = 0; y < nHeight; y += 1) {
       p.push();
       for (let x = 0; x < nWidth; x += 1) {
-        processCell(x, y, filled, thresholds, delta);
+        processCell(x, y, thresholds, delta);
         p.translate(cellDim, 0);
       }
       p.pop();
@@ -138,15 +132,16 @@ const terrain = (p5) => {
     setValues();
     p.noLoop();
 
-    processGrid(0.3, 10, 0.7 / 10, [seaColor]);
-    processGrid(-1, 120, 1.3 / 120, []);
+    processGrid();
   };
 
   p.draw = () => {
     p.clear();
     p.scale(scale);
 
+    console.time('initialized in:');
     display();
+    console.timeEnd('initialized in:');
   };
 
   p.windowResized = () => {

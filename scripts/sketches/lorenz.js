@@ -1,5 +1,6 @@
 const lorenz = (p5) => {
-  console.log('Link to project: https://editor.p5js.org/Bixbite/sketches/S10aGSejQ');
+  console.info('Lorenz Attractor');
+  console.info('Link to project: https://editor.p5js.org/Bixbite/sketches/S10aGSejQ');
 
   const p = p5;
 

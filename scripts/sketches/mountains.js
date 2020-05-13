@@ -1,8 +1,8 @@
 import getRandomPalette from '../utils/getRandomPalette';
 
 const mountains = (p5) => {
-  console.log('Perlin Mountains by Owen McAteer.');
-  console.log('Link to project: https://owenmcateer.github.io/Motus-Art');
+  console.info('Perlin Mountains by Owen McAteer.');
+  console.info('Link to project: https://owenmcateer.github.io/Motus-Art');
 
   const p = p5;
 

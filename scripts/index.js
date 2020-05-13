@@ -8,6 +8,14 @@ import ring from './sketches/ring';
 import terrain from './sketches/terrain';
 import topography from './sketches/topography';
 
+console.info(`Welcome! Thanks for visiting my site. 
+Refresh page to see other generative backgrounds :)!
+
+The generative backgrounds are written in P5.js.
+Some of these are inspired by/taken from other artists.
+
+If you have any questions please let me know at: bilgiliozenc@gmail.com
+`);
 
 document.querySelector('#intro').scrollIntoView();
 
@@ -57,6 +65,4 @@ const randomNumGenerator = (min, max) => Math.floor(Math.random() * (max - min +
 
 const sketch = sketches[randomNumGenerator(0, sketches.length - 1)];
 
-console.time('Initialized sketch in: ');
 new p5(sketch);
-console.timeEnd('Initialized sketch in: ');

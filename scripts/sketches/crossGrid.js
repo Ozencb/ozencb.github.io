@@ -1,6 +1,6 @@
 const crossGrid = (p5) => {
-  console.log('Cross Grid by Kjetil Midtgarden Golid.');
-  console.log('Link to project: https://github.com/kgolid/p5ycho/tree/master/lab/cross-grid');
+  console.info('Cross Grid by Kjetil Midtgarden Golid.');
+  console.info('Link to project: https://github.com/kgolid/p5ycho/tree/master/lab/cross-grid');
   const p = p5;
 
   let tick;

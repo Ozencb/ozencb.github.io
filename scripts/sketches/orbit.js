@@ -1,7 +1,4 @@
 const globe = (p5) => {
-  console.log('Orbit Control from P5js.');
-  console.log('Link to project: https://p5js.org/examples/3d-orbit-control.html');
-
   const p = p5;
 
   const radius = 1000;

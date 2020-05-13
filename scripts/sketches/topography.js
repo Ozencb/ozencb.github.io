@@ -1,6 +1,6 @@
 const topography = (p5) => {
-  console.log('Topography by Kjetil Midtgarden Golid.');
-  console.log('Link to project: https://github.com/kgolid/p5ycho/tree/master/topography');
+  console.info('Topography by Kjetil Midtgarden Golid.');
+  console.info('Link to project: https://github.com/kgolid/p5ycho/tree/master/topography');
 
   const p = p5;
 
@@ -10,7 +10,6 @@ const topography = (p5) => {
   const ox = p.random(10000);
   const oy = p.random(10000);
 
-  let arr = [];
   const spacing = -10;
   const magnitude = 75;
   const noiseDelta = 15;
@@ -21,14 +20,6 @@ const topography = (p5) => {
 
   const cols = ['#996628', '#B28223', '#A68E2F', '#9A9A3B', '#769A76', '#6B828E'];
 
-
-  const createInitialArray = () => {
-    const array = [];
-    for (let i = 0; i < 360; i += 1) {
-      array.push(dimInit);
-    }
-    return array;
-  };
 
   p.setup = () => {
     const canvas = p.createCanvas(p.windowWidth, p.windowHeight);
@@ -43,8 +34,6 @@ const topography = (p5) => {
     p.stroke(0);
     p.noLoop();
     p.smooth();
-
-    arr = createInitialArray();
   };
 
   const getNoise = (radian, dim) => {
@@ -58,7 +47,16 @@ const topography = (p5) => {
     );
   };
 
+  const createInitialArray = () => {
+    const array = [];
+    for (let i = 0; i < 360; i += 1) {
+      array.push(dimInit);
+    }
+    return array;
+  };
+
   const display = () => {
+    let arr = createInitialArray();
     for (let i = 0; i < rings; i += 1) {
       p.strokeWeight(i % 6 === 0 ? 2 : 1);
 
@@ -67,19 +65,18 @@ const topography = (p5) => {
       const newArr = [];
 
       p.beginShape();
-      for (const ang in arr) {
+      Object.keys(arr).forEach((ang) => {
         const rad = p.radians(ang);
         const newRadius = spacing + arr[ang] + getNoise(rad, i * noiseDelta) * magnitude;
 
         p.vertex(newRadius * p.cos(rad), newRadius * p.sin(rad));
         newArr[ang] = newRadius;
-      }
-
+      });
       p.beginContour();
-      for (const ang in arr) {
+      Object.keys(arr).forEach((ang) => {
         const rad = p.radians(359 - ang);
         p.vertex(arr[359 - ang] * p.cos(rad), arr[359 - ang] * p.sin(rad));
-      }
+      });
       p.endContour();
       p.endShape(p.CLOSE);
 
@@ -119,15 +116,16 @@ const topography = (p5) => {
     p.translate(coorX, coorY);
     p.scale((p.windowWidth + p.windowHeight) / 1500);
 
+    console.time('Initialized sketch in: ');
     display();
     p.pop();
     displayCrosses();
     displayGrid();
+    console.timeEnd('Initialized sketch in: ');
   };
 
   p.windowResized = () => {
     p.resizeCanvas(p.windowWidth, p.windowHeight);
-    arr = createInitialArray();
     p.redraw();
   };
 };
