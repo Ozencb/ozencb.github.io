@@ -1,4 +1,4 @@
-import lodash from 'lodash';
+import debounce from 'lodash.debounce';
 
 const crossGrid = (p5) => {
   console.info('Cross Grid by Kjetil Midtgarden Golid.');
@@ -60,7 +60,7 @@ const crossGrid = (p5) => {
     p.resizeCanvas(p.windowWidth, p.windowHeight);
   };
 
-  const debounceResize = lodash.debounce(resizeCanvas, 100);
+  const debounceResize = debounce(resizeCanvas, 100);
 
   p.windowResized = () => {
     debounceResize();

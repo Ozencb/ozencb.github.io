@@ -1,4 +1,4 @@
-import lodash from 'lodash';
+import debounce from 'lodash.debounce';
 
 const cubeGrid = (p5) => {
   const p = p5;
@@ -88,7 +88,7 @@ const cubeGrid = (p5) => {
     p.resizeCanvas(p.windowWidth, p.windowHeight);
   };
 
-  const debounceResize = lodash.debounce(resizeCanvas, 100);
+  const debounceResize = debounce(resizeCanvas, 100);
 
   p.windowResized = () => {
     debounceResize();

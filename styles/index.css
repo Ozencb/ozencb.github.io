@@ -5,18 +5,25 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Montserrat';
+  src: local('Montserrat-Bold'), url('../assets/fonts/Montserrat-Bold.ttf');
+  font-weight: 700;
+  font-style: normal;
+}
+
 :root {
   --bg-color: #171718;
   --primary-color: #e4e0d7;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   width: 100%;
 }
 
 body {
-  font-family: 'Metropolis', sans-serif;
   font-weight: 700;
   min-width: 300px;
   min-height: 450px;
@@ -37,54 +44,140 @@ main {
 }
 
 main section {
-  flex-basis: calc(var(--vh, 1vh) * 100);;
+  flex-basis: calc(var(--vh, 1vh) * 100);
+  ;
   flex-grow: 1;
   flex-shrink: 0;
   width: 90vw;
   scroll-snap-align: start;
 }
 
-.name {
+svg {
+  height: 2rem;
+  width: 2rem;
+}
+
+hr {
+  border: 2px solid;
+  width: 15vw;
+  margin-bottom: 1rem;
+}
+
+.intro {
+  font-family: 'Metropolis', sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+.intro #stage {
+  z-index: -1;
+}
+
+.intro .name {
   line-height: 0.9;
   font-size: 6rem;
   margin: 5rem 0 0 0;
 }
 
-.title {
+.intro .title {
   margin: 8rem 0 1rem 0;
   font-size: 4rem;
   line-height: 1;
 }
 
-.intro {
-  display: flex;
-  flex-direction: column;
-}
-
-.about {}
-
-.scroll-arrow {
+.intro .arrow {
   margin: auto auto 0 auto;
   text-align: center;
   padding-bottom: 5px;
-  transition: visibility 0.5s, opacity 0.5s linear;
   animation: bounce 2s infinite;
 }
 
-#stage {
-  z-index: -1;
-  transition: visibility 0.5s, opacity 0.5s linear;
+.about {
+  font-family: 'Montserrat', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.about .text {
+  font-size: 2em;
+  text-align: center;
+  width: 75%;
+}
+
+.about .details {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 100%;
+  margin: auto 0;
+}
+
+.details .item {
+  margin: 0 auto 1rem auto;
+}
+
+.education.container {}
+
+.education.item {}
+
+.education .school {}
+
+.education .department {}
+
+.education .year {}
+
+.experience.container {}
+
+.experience.item {}
+
+.experience .company {}
+
+.experience .position {}
+
+.experience .year {}
+
+.about .links {
+  display: flex;
+  flex-direction: row;
+  margin: auto auto 1rem auto;
+}
+
+.about .links .link.social {
+  margin: 0 1rem 0 0;
+}
+
+a:link,
+a:visited,
+a:hover,
+.about-links a {
+  color: var(--primary-color);
+  text-decoration: none;
+  position: relative;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+  /* make scrollbar transparent */
+}
+
+.disable-select {
+  user-select: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.transition-visibility {
+  transition: visibility 0.1s, opacity 0.1s linear;
 }
 
 .invisible {
   visibility: hidden;
   opacity: 0;
-}
-
-a:link, a:visited, a:hover {
-  color: var(--primary-color);
-  text-decoration: none;
-  position: relative;
 }
 
 .colours-normal {
@@ -105,27 +198,20 @@ a:link, a:visited, a:hover {
   fill: var(--bg-color);
 }
 
-.disable-select {
-  user-select: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-}
-
-::-webkit-scrollbar {
-  width: 0px;
-  background: transparent;
-  /* make scrollbar transparent */
-}
-
 @keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
+
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
     transform: translateY(0);
   }
+
   40% {
     transform: translateY(-25px);
   }
+
   60% {
     transform: translateY(-10px);
   }
@@ -135,6 +221,7 @@ a:link, a:visited, a:hover {
   .name {
     font-size: 4rem;
   }
+
   .title {
     font-size: 2rem;
   }

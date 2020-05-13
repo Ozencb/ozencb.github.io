@@ -1,4 +1,4 @@
-import lodash from 'lodash';
+import debounce from 'lodash.debounce';
 
 const lorenz = (p5) => {
   console.info('Lorenz Attractor');
@@ -71,7 +71,7 @@ const lorenz = (p5) => {
     p.resizeCanvas(p.windowWidth, p.windowHeight);
   };
 
-  const debounceResize = lodash.debounce(resizeCanvas, 100);
+  const debounceResize = debounce(resizeCanvas, 100);
 
   p.windowResized = () => {
     debounceResize();

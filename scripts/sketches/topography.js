@@ -1,4 +1,4 @@
-import lodash from 'lodash';
+import debounce from 'lodash.debounce';
 
 const topography = (p5) => {
   console.info('Topography by Kjetil Midtgarden Golid.');
@@ -129,7 +129,7 @@ const topography = (p5) => {
     p.redraw();
   };
 
-  const debounceResize = lodash.debounce(resizeCanvas, 100);
+  const debounceResize = debounce(resizeCanvas, 100);
 
   p.windowResized = () => {
     debounceResize();

@@ -19,8 +19,7 @@
   },
   "homepage": "https://github.com/Ozencb/portfolio#readme",
   "dependencies": {
-    "lodash": "^4.17.15",
-    "lodash-cli": "^4.17.5",
+    "lodash.debounce": "^4.0.8",
     "simplex-noise": "^2.4.0",
     "uglify-es": "^3.3.9"
   },

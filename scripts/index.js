@@ -1,9 +1,8 @@
-import lodash from 'lodash';
+import debounce from 'lodash.debounce';
 import crossGrid from './sketches/crossGrid';
 import cubeGrid from './sketches/cubeGrid';
 import donut from './sketches/donut';
 import lorenz from './sketches/lorenz';
-import mountains from './sketches/mountains';
 import orbit from './sketches/orbit';
 import ring from './sketches/ring';
 import terrain from './sketches/terrain';
@@ -18,18 +17,29 @@ Some of these are inspired by/taken from other artists.
 If you have any questions please let me know at: bilgiliozenc@gmail.com
 `);
 
-const main = document.querySelector('#main');
 
+const main = document.querySelector('#main');
 
 const resizeWindow = () => {
   const vh = window.innerHeight * 0.01;
   document.documentElement.style.setProperty('--vh', `${vh}px`);
 };
 
+const changeEveryStyle = (elements, className, method) => {
+  elements.forEach((element) => {
+    if (method === 'add') {
+      element.classList.add(className);
+    } else if (method === 'remove') {
+      element.classList.remove(className);
+    }
+  });
+};
+
 const scrollEvent = () => {
   const stage = document.querySelector('#stage');
-  const arrow = document.querySelector('#scroll-arrow');
-  const svgPath = document.querySelector('#svg-path');
+  const arrow = document.querySelector('#arrow');
+  const svgs = document.querySelectorAll('.svg-path');
+  const hrs = document.querySelectorAll('.hr');
 
   if (main.scrollTop > 50) {
     arrow.classList.add('invisible');
@@ -40,15 +50,13 @@ const scrollEvent = () => {
   }
 
   if (main.scrollTop > window.innerHeight / 2) {
-    document.body.classList.remove('colours-normal');
     document.body.classList.add('colours-inverted');
-    svgPath.classList.remove('svg-fill-normal');
-    svgPath.classList.add('svg-fill-inverted');
+    changeEveryStyle(svgs, 'svg-fill-inverted', 'add');
+    changeEveryStyle(hrs, 'svg-fill-inverted', 'add');
   } else {
     document.body.classList.remove('colours-inverted');
-    document.body.classList.add('colours-normal');
-    svgPath.classList.remove('svg-fill-inverted');
-    svgPath.classList.add('svg-fill-normal');
+    changeEveryStyle(svgs, 'svg-fill-inverted', 'remove');
+    changeEveryStyle(hrs, 'svg-fill-inverted', 'remove');
   }
 
   resizeWindow();
@@ -69,7 +77,7 @@ const initialize = () => {
   });
 
   const sketches = [
-    crossGrid, cubeGrid, donut, lorenz, mountains,
+    crossGrid, cubeGrid, donut, lorenz,
     orbit, ring, terrain, topography,
   ];
 
@@ -81,8 +89,8 @@ const initialize = () => {
 
 window.addEventListener('load', initialize);
 
-const debounceScroll = lodash.debounce(scrollEvent, 25);
+const debounceScroll = debounce(scrollEvent, 25);
 main.addEventListener('scroll', debounceScroll);
 
-const debounceResize = lodash.debounce(resizeWindow, 100);
+const debounceResize = debounce(resizeWindow, 25);
 window.addEventListener('resize', debounceResize);
