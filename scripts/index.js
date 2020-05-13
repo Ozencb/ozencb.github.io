@@ -57,5 +57,6 @@ const randomNumGenerator = (min, max) => Math.floor(Math.random() * (max - min +
 
 const sketch = sketches[randomNumGenerator(0, sketches.length - 1)];
 
-
+console.time('Initialized sketch in: ');
 new p5(sketch);
+console.timeEnd('Initialized sketch in: ');
