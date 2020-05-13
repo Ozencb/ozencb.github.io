@@ -1,3 +1,4 @@
+import lodash from 'lodash';
 import getRandomPalette from '../utils/getRandomPalette';
 
 const rings = (p5) => {
@@ -54,8 +55,14 @@ const rings = (p5) => {
     display();
   };
 
-  p.windowResized = () => {
+  const resizeCanvas = () => {
     p.resizeCanvas(p.windowWidth, p.windowHeight);
+  };
+
+  const debounceResize = lodash.debounce(resizeCanvas, 100);
+
+  p.windowResized = () => {
+    debounceResize();
   };
 };
 

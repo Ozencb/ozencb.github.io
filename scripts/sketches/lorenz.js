@@ -1,3 +1,5 @@
+import lodash from 'lodash';
+
 const lorenz = (p5) => {
   console.info('Lorenz Attractor');
   console.info('Link to project: https://editor.p5js.org/Bixbite/sketches/S10aGSejQ');
@@ -65,8 +67,14 @@ const lorenz = (p5) => {
     }
   };
 
-  p.windowResized = () => {
+  const resizeCanvas = () => {
     p.resizeCanvas(p.windowWidth, p.windowHeight);
+  };
+
+  const debounceResize = lodash.debounce(resizeCanvas, 100);
+
+  p.windowResized = () => {
+    debounceResize();
   };
 };
 

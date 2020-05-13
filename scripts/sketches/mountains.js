@@ -1,3 +1,4 @@
+import lodash from 'lodash';
 import getRandomPalette from '../utils/getRandomPalette';
 
 const mountains = (p5) => {
@@ -73,11 +74,16 @@ const mountains = (p5) => {
     }
   };
 
-
-  p.windowResized = () => {
+  const resizeCanvas = () => {
     p.resizeCanvas(p.windowWidth, p.windowHeight);
     p.clear();
     p.redraw();
+  };
+
+  const debounceResize = lodash.debounce(resizeCanvas, 100);
+
+  p.windowResized = () => {
+    debounceResize();
   };
 };
 

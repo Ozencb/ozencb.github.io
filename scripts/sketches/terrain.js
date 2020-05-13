@@ -1,5 +1,5 @@
+import lodash from 'lodash';
 import SimplexNoise from 'simplex-noise';
-
 import {
   drawLine,
   drawPoly,
@@ -152,11 +152,14 @@ const terrain = (p5) => {
     display();
   };
 
-  p.windowResized = () => {
+  const resizeCanvas = () => {
     p.resizeCanvas(p.windowWidth, p.windowHeight);
-    setTimeout(() => {
-      p.redraw();
-    }, 1000);
+  };
+
+  const debounceResize = lodash.debounce(resizeCanvas, 100);
+
+  p.windowResized = () => {
+    debounceResize();
   };
 };
 

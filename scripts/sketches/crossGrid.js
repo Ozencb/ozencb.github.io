@@ -1,3 +1,5 @@
+import lodash from 'lodash';
+
 const crossGrid = (p5) => {
   console.info('Cross Grid by Kjetil Midtgarden Golid.');
   console.info('Link to project: https://github.com/kgolid/p5ycho/tree/master/lab/cross-grid');
@@ -54,8 +56,14 @@ const crossGrid = (p5) => {
   };
 
 
-  p.windowResized = () => {
+  const resizeCanvas = () => {
     p.resizeCanvas(p.windowWidth, p.windowHeight);
+  };
+
+  const debounceResize = lodash.debounce(resizeCanvas, 100);
+
+  p.windowResized = () => {
+    debounceResize();
   };
 };
 

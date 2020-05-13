@@ -37,7 +37,7 @@ main {
 }
 
 main section {
-  flex-basis: 100vh;
+  flex-basis: calc(var(--vh, 1vh) * 100);;
   flex-grow: 1;
   flex-shrink: 0;
   width: 90vw;

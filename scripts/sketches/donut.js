@@ -1,3 +1,5 @@
+import lodash from 'lodash';
+
 const donut = (p5) => {
   const p = p5;
 
@@ -24,8 +26,14 @@ const donut = (p5) => {
     p.pop();
   };
 
-  p.windowResized = () => {
+  const resizeCanvas = () => {
     p.resizeCanvas(p.windowWidth, p.windowHeight);
+  };
+
+  const debounceResize = lodash.debounce(resizeCanvas, 100);
+
+  p.windowResized = () => {
+    debounceResize();
   };
 };
 

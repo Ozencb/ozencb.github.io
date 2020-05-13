@@ -1,3 +1,4 @@
+import lodash from 'lodash';
 import crossGrid from './sketches/crossGrid';
 import cubeGrid from './sketches/cubeGrid';
 import donut from './sketches/donut';
@@ -17,10 +18,15 @@ Some of these are inspired by/taken from other artists.
 If you have any questions please let me know at: bilgiliozenc@gmail.com
 `);
 
-document.querySelector('#intro').scrollIntoView();
-
 const main = document.querySelector('#main');
-main.addEventListener('scroll', () => {
+
+
+const resizeWindow = () => {
+  const vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+};
+
+const scrollEvent = () => {
   const stage = document.querySelector('#stage');
   const arrow = document.querySelector('#scroll-arrow');
   const svgPath = document.querySelector('#svg-path');
@@ -44,24 +50,39 @@ main.addEventListener('scroll', () => {
     svgPath.classList.remove('svg-fill-inverted');
     svgPath.classList.add('svg-fill-normal');
   }
-});
 
-document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-  anchor.addEventListener('click', (e) => {
-    e.preventDefault();
-    e.target.scrollIntoView({
-      behavior: 'smooth',
+  resizeWindow();
+};
+
+const initialize = () => {
+  resizeWindow();
+
+  document.querySelector('#intro').scrollIntoView();
+
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.target.scrollIntoView({
+        behavior: 'smooth',
+      });
     });
   });
-});
 
-const sketches = [
-  crossGrid, cubeGrid, donut, lorenz, mountains,
-  orbit, ring, terrain, topography,
-];
+  const sketches = [
+    crossGrid, cubeGrid, donut, lorenz, mountains,
+    orbit, ring, terrain, topography,
+  ];
 
-const randomNumGenerator = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
+  const randomNumGenerator = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
 
-const sketch = sketches[randomNumGenerator(0, sketches.length - 1)];
+  const sketch = sketches[randomNumGenerator(0, sketches.length - 1)];
+  new p5(sketch);
+};
 
-new p5(sketch);
+window.addEventListener('load', initialize);
+
+const debounceScroll = lodash.debounce(scrollEvent, 25);
+main.addEventListener('scroll', debounceScroll);
+
+const debounceResize = lodash.debounce(resizeWindow, 100);
+window.addEventListener('resize', debounceResize);

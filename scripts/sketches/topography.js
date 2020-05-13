@@ -1,3 +1,5 @@
+import lodash from 'lodash';
+
 const topography = (p5) => {
   console.info('Topography by Kjetil Midtgarden Golid.');
   console.info('Link to project: https://github.com/kgolid/p5ycho/tree/master/topography');
@@ -116,17 +118,21 @@ const topography = (p5) => {
     p.translate(coorX, coorY);
     p.scale((p.windowWidth + p.windowHeight) / 1500);
 
-    console.time('Initialized sketch in: ');
     display();
     p.pop();
     displayCrosses();
     displayGrid();
-    console.timeEnd('Initialized sketch in: ');
   };
 
-  p.windowResized = () => {
+  const resizeCanvas = () => {
     p.resizeCanvas(p.windowWidth, p.windowHeight);
     p.redraw();
+  };
+
+  const debounceResize = lodash.debounce(resizeCanvas, 100);
+
+  p.windowResized = () => {
+    debounceResize();
   };
 };
 
