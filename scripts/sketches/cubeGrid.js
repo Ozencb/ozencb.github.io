@@ -1,79 +1,90 @@
-const cubeGrid = (p) => {
-    let tx, ty, tz, gap, rows, cols, depths, theta;
-    let planeWidth, planeHeight, planeDepth;
+const cubeGrid = (p5) => {
+  const p = p5;
 
-    p.setup = () => {
-        let canvas = p.createCanvas(p.windowWidth, p.windowHeight, p.WEBGL);
+  let tx;
+  let ty;
+  let tz;
+  let gap;
+  let rows;
+  let cols;
+  let depths;
+  let theta;
+  let planeWidth;
+  let planeHeight;
+  let planeDepth;
 
-        canvas.parent('stage');
-        canvas.position(0, 0);
-        canvas.elt.style.position = "fixed";
-        canvas.style('z-index', '-1');
+  p.setup = () => {
+    const canvas = p.createCanvas(p.windowWidth, p.windowHeight, p.WEBGL);
 
-        let cube = 150;
+    canvas.parent('stage');
+    canvas.position(0, 0);
+    canvas.elt.style.position = 'fixed';
+    canvas.style('z-index', '-1');
 
-        tx = cube;
-        ty = cube;
-        tz = cube;
+    const cube = 150;
 
-        gap = 50;
+    tx = cube;
+    ty = cube;
+    tz = cube;
 
-        rows = 3;
-        cols = 3;
-        depths = 3;
+    gap = 50;
 
-        theta = 0;
+    rows = 3;
+    cols = 3;
+    depths = 3;
 
-        planeWidth = tx * (cols - 1);
-        planeHeight = ty * (rows - 1);
-        planeDepth = tz * (depths - 1);
-    }
+    theta = 0;
 
-    p.draw = () => {
-        p.clear();
-        p.scale(Math.min(p.windowWidth / 1000, p.windowHeight / 1000));
-        p.stroke(240, 20);
+    planeWidth = tx * (cols - 1);
+    planeHeight = ty * (rows - 1);
+    planeDepth = tz * (depths - 1);
+  };
 
-        p.rotateZ(theta);
-        p.rotateY(theta);
-        p.rotateX(theta);
+  p.draw = () => {
+    p.clear();
+    p.scale(Math.min(p.windowWidth / 1000, p.windowHeight / 1000));
+    p.stroke(240, 20);
 
-        p.translate(-planeWidth / 2, -planeHeight / 2, planeDepth / 2);
+    p.rotateZ(theta);
+    p.rotateY(theta);
+    p.rotateX(theta);
 
-        p.noStroke();
+    p.translate(-planeWidth / 2, -planeHeight / 2, planeDepth / 2);
+
+    p.noStroke();
 
 
-        p.directionalLight(255, 0, 0, p.width, -p.height);
-        p.directionalLight(0, 0, 255, -p.width, -p.height);
-        p.directionalLight(0, 255, 0, -p.width, p.height);
+    p.directionalLight(255, 0, 0, p.width, -p.height);
+    p.directionalLight(0, 0, 255, -p.width, -p.height);
+    p.directionalLight(0, 255, 0, -p.width, p.height);
 
-        for (let i = 0; i < cols; i++) {
-            p.push();
-            p.translate(tx * i, 0, 0);
+    for (let i = 0; i < cols; i += 1) {
+      p.push();
+      p.translate(tx * i, 0, 0);
 
-            for (let j = 0; j < rows; j++) {
-                p.push();
-                p.translate(0, ty * j, 0);
+      for (let j = 0; j < rows; j += 1) {
+        p.push();
+        p.translate(0, ty * j, 0);
 
-                for (let k = 0; k < depths; k++) {
-                    p.push();
-                    p.translate(0, 0, (tz * k) - planeDepth);
+        for (let k = 0; k < depths; k += 1) {
+          p.push();
+          p.translate(0, 0, (tz * k) - planeDepth);
 
-                    p.specularMaterial(250);
-                    p.box(tx - gap, ty - gap, tz - gap);
+          p.specularMaterial(250);
+          p.box(tx - gap, ty - gap, tz - gap);
 
-                    p.pop();
-                }
-                p.pop();
-            }
-            p.pop();
+          p.pop();
         }
-        theta += 0.01;
+        p.pop();
+      }
+      p.pop();
     }
+    theta += 0.01;
+  };
 
-    p.windowResized = () => {
-        p.resizeCanvas(p.windowWidth, p.windowHeight);
-    }
-}
+  p.windowResized = () => {
+    p.resizeCanvas(p.windowWidth, p.windowHeight);
+  };
+};
 
 export default cubeGrid;

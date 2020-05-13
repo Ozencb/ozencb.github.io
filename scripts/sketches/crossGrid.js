@@ -1,60 +1,62 @@
-const crossGrid = (p) => {
-    console.log("Cross Grid by Kjetil Midtgarden Golid.");
-    console.log("Link to project: https://github.com/kgolid/p5ycho/tree/master/lab/cross-grid");
+const crossGrid = (p5) => {
+  console.log('Cross Grid by Kjetil Midtgarden Golid.');
+  console.log('Link to project: https://github.com/kgolid/p5ycho/tree/master/lab/cross-grid');
+  const p = p5;
 
-    let tick;
+  let tick;
 
-    let cross_dim = 5;
-    let grid_size = 25;
-    let cell_dim = 25;
-    let nheight = 1.5;
-    let nzoom = 25;
+  const crossDim = 5;
+  const gridSize = 25;
+  const cellDim = 25;
+  const nheight = 1.5;
+  const nzoom = 25;
 
-    p.setup = () => {
-        let canvas = p.createCanvas(p.windowWidth, p.windowHeight);
+  p.setup = () => {
+    const canvas = p.createCanvas(p.windowWidth, p.windowHeight);
 
-        canvas.parent('stage');
-        canvas.position(0, 0);
-        canvas.elt.style.position = "fixed";
-        canvas.style('z-index', '-1');
+    canvas.parent('stage');
+    canvas.position(0, 0);
+    canvas.elt.style.position = 'fixed';
+    canvas.style('z-index', '-1');
 
-        p.stroke(50);
+    p.stroke(50);
 
-        tick = 0;
-    };
+    tick = 0;
+  };
 
-    p.draw = () => {
-        p.clear();
-        p.translate(p.width / 2, p.height / 2);
-        p.scale(Math.max(p.windowWidth / 500, p.windowHeight / 500));
+  const drawCross = (x, y) => {
+    p.push();
+    p.translate(x, y);
+    p.line(-crossDim / 2, 0, crossDim / 2, 0);
+    p.line(0, -crossDim / 2, 0, crossDim / 2);
+    p.pop();
+  };
 
-        draw_grid();
-
-        tick += 0.005;
-    };
-
-    const draw_grid = () => {
-        for (let j = 0; j < grid_size; j++) {
-            for (let i = 0; i < grid_size; i++) {
-                p.push();
-                p.scale(p.map(p.noise(i / nzoom + tick, j / nzoom), 0, 1, 1 / nheight, nheight));
-                draw_cross((i - grid_size / 2) * cell_dim, (j - grid_size / 2) * cell_dim);
-                p.pop();
-            }
-        }
-    }
-
-    const draw_cross = (x, y) => {
+  const drawGrid = () => {
+    for (let j = 0; j < gridSize; j += 1) {
+      for (let i = 0; i < gridSize; i += 1) {
         p.push();
-        p.translate(x, y);
-        p.line(-cross_dim / 2, 0, cross_dim / 2, 0);
-        p.line(0, -cross_dim / 2, 0, cross_dim / 2);
+        p.scale(p.map(p.noise(i / nzoom + tick, j / nzoom), 0, 1, 1 / nheight, nheight));
+        drawCross((i - gridSize / 2) * cellDim, (j - gridSize / 2) * cellDim);
         p.pop();
+      }
     }
+  };
 
-    p.windowResized = () => {
-        p.resizeCanvas(p.windowWidth, p.windowHeight);
-    }
-}
+  p.draw = () => {
+    p.clear();
+    p.translate(p.width / 2, p.height / 2);
+    p.scale(Math.max(p.windowWidth / 500, p.windowHeight / 500));
+
+    drawGrid();
+
+    tick += 0.005;
+  };
+
+
+  p.windowResized = () => {
+    p.resizeCanvas(p.windowWidth, p.windowHeight);
+  };
+};
 
 export default crossGrid;

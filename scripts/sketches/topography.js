@@ -1,130 +1,135 @@
-const topography = (p) => {
-    console.log("Topography by Kjetil Midtgarden Golid.");
-    console.log("Link to project: https://github.com/kgolid/p5ycho/tree/master/topography");
+const topography = (p5) => {
+  console.log('Topography by Kjetil Midtgarden Golid.');
+  console.log('Link to project: https://github.com/kgolid/p5ycho/tree/master/topography');
 
-    let rings = 15;
-    let dim_init = 1;
+  const p = p5;
 
-    let ox = p.random(10000);
-    let oy = p.random(10000);
+  const rings = 15;
+  const dimInit = 1;
 
-    let arr = [];
-    let spacing = -10;
-    let magnitude = 75;
-    let noise_delta = 15;
-    let noise_radius = 0.25;
+  const ox = p.random(10000);
+  const oy = p.random(10000);
 
-    let coorX = p.randomGaussian(p.windowWidth / 2, 250);
-    let coorY = p.randomGaussian(p.windowHeight / 2, 250);
+  let arr = [];
+  const spacing = -10;
+  const magnitude = 75;
+  const noiseDelta = 15;
+  const noiseRadius = 0.25;
 
-    let cols = ['#996628', '#B28223', '#A68E2F', '#9A9A3B', '#769A76', '#6B828E'];
+  const coorX = p.randomGaussian(p.windowWidth / 2, 250);
+  const coorY = p.randomGaussian(p.windowHeight / 2, 250);
 
-    p.setup = () => {
-        let canvas = p.createCanvas(p.windowWidth, p.windowHeight);
+  const cols = ['#996628', '#B28223', '#A68E2F', '#9A9A3B', '#769A76', '#6B828E'];
 
-        canvas.parent('stage');
-        canvas.position(0, 0);
-        canvas.elt.style.position = "fixed";
-        canvas.style('z-index', '-1');
 
-        p.background(0);
-        p.strokeWeight(1);
-        p.stroke(0);
-        p.noLoop();
-        p.smooth();
+  const createInitialArray = () => {
+    const array = [];
+    for (let i = 0; i < 360; i += 1) {
+      array.push(dimInit);
+    }
+    return array;
+  };
 
-        arr = createInitialArray();
-    };
+  p.setup = () => {
+    const canvas = p.createCanvas(p.windowWidth, p.windowHeight);
 
-    p.draw = () => {
-        p.clear();
-        p.push();
-        p.translate(coorX, coorY);
-        p.scale((p.windowWidth + p.windowHeight) / 1500);
+    canvas.parent('stage');
+    canvas.position(0, 0);
+    canvas.elt.style.position = 'fixed';
+    canvas.style('z-index', '-1');
 
-        display();
-        p.pop();
-        display_crosses();
-        display_grid();
-    };
+    p.background(0);
+    p.strokeWeight(1);
+    p.stroke(0);
+    p.noLoop();
+    p.smooth();
 
-    const display = () => {
-        for (let i = 0; i < rings; i++) {
-            p.strokeWeight(i % 6 == 0 ? 2 : 1);
+    arr = createInitialArray();
+  };
 
-            p.fill(cols[p.floor(i / rings * cols.length)]);
+  const getNoise = (radian, dim) => {
+    let r = radian % p.TAU;
 
-            let new_arr = [];
+    if (r < 0.0) {
+      r += p.TAU;
+    }
+    return p.noise(
+      ox + p.cos(r) * (noiseRadius + dim / 200), oy + p.sin(r) * (noiseRadius + dim / 200), dim,
+    );
+  };
 
-            p.beginShape();
-            for (const ang in arr) {
-                let rad = p.radians(ang);
-                let new_radius = spacing + arr[ang] + getNoise(rad, i * noise_delta) * magnitude;
+  const display = () => {
+    for (let i = 0; i < rings; i += 1) {
+      p.strokeWeight(i % 6 === 0 ? 2 : 1);
 
-                p.vertex(new_radius * p.cos(rad), new_radius * p.sin(rad));
-                new_arr[ang] = new_radius;
-            }
-            p.beginContour();
-            for (const ang in arr) {
-                let rad = p.radians(359 - ang);
-                p.vertex(arr[359 - ang] * p.cos(rad), arr[359 - ang] * p.sin(rad));
-            }
-            p.endContour();
+      p.fill(cols[p.floor((i / rings) * cols.length)]);
 
-            p.endShape(p.CLOSE);
+      const newArr = [];
 
-            arr = new_arr;
-        }
+      p.beginShape();
+      for (const ang in arr) {
+        const rad = p.radians(ang);
+        const newRadius = spacing + arr[ang] + getNoise(rad, i * noiseDelta) * magnitude;
+
+        p.vertex(newRadius * p.cos(rad), newRadius * p.sin(rad));
+        newArr[ang] = newRadius;
+      }
+
+      p.beginContour();
+      for (const ang in arr) {
+        const rad = p.radians(359 - ang);
+        p.vertex(arr[359 - ang] * p.cos(rad), arr[359 - ang] * p.sin(rad));
+      }
+      p.endContour();
+      p.endShape(p.CLOSE);
+
+      arr = newArr;
+    }
+  };
+
+  const displayCrosses = () => {
+    for (let i = 0; i < 50; i += 1) {
+      p.push();
+      p.translate(p.random(20, p.windowWidth - 20), p.random(20, p.windowHeight - 20));
+
+      p.line(-5, 0, 5, 0);
+      p.line(0, -5, 0, 5);
+      p.pop();
+    }
+  };
+
+  const displayGrid = () => {
+    p.stroke(0, 80);
+    p.strokeWeight(1);
+
+    const gridSpace = 160;
+
+    for (let i = gridSpace; i < p.windowHeight; i += gridSpace) {
+      p.line(0, i, p.windowWidth, i);
     }
 
-    const createInitialArray = () => {
-        let array = [];
-        for (let i = 0; i < 360; i++) {
-            array.push(dim_init);
-        }
-        return array;
+    for (let j = gridSpace; j < p.windowWidth; j += gridSpace) {
+      p.line(j, 0, j, p.windowHeight);
     }
+  };
 
-    const display_crosses = () => {
-        for (let i = 0; i < 50; i++) {
-            p.push();
-            p.translate(p.random(20, p.windowWidth - 20), p.random(20, p.windowHeight - 20));
+  p.draw = () => {
+    p.clear();
+    p.push();
+    p.translate(coorX, coorY);
+    p.scale((p.windowWidth + p.windowHeight) / 1500);
 
-            p.line(-5, 0, 5, 0);
-            p.line(0, -5, 0, 5);
-            p.pop();
-        }
-    }
+    display();
+    p.pop();
+    displayCrosses();
+    displayGrid();
+  };
 
-    const display_grid = () => {
-        p.stroke(0, 80);
-        p.strokeWeight(1);
-
-        let grid_space = 160;
-
-        for (let i = grid_space; i < p.windowHeight; i += grid_space) {
-            p.line(0, i, p.windowWidth, i);
-        }
-
-        for (let j = grid_space; j < p.windowWidth; j += grid_space) {
-            p.line(j, 0, j, p.windowHeight);
-        }
-    }
-
-    const getNoise = (radian, dim) => {
-        let r = radian % p.TAU;
-
-        if (r < 0.0) {
-            r += p.TAU;
-        }
-        return p.noise(ox + p.cos(r) * (noise_radius + dim / 200), oy + p.sin(r) * (noise_radius + dim / 200), dim);
-    }
-
-    p.windowResized = () => {
-        p.resizeCanvas(p.windowWidth, p.windowHeight);
-        arr = createInitialArray();
-        p.redraw();
-    }
+  p.windowResized = () => {
+    p.resizeCanvas(p.windowWidth, p.windowHeight);
+    arr = createInitialArray();
+    p.redraw();
+  };
 };
 
 export default topography;

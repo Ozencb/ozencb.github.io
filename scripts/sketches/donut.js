@@ -1,30 +1,32 @@
-const donut = (p) => {
-    p.setup = () => {
-        let canvas = p.createCanvas(p.windowWidth, p.windowHeight, p.WEBGL);
+const donut = (p5) => {
+  const p = p5;
 
-        canvas.parent('stage');
-        canvas.position(0, 0);
-        canvas.elt.style.position = "fixed";
-        canvas.style('z-index', '-1');
-    }
+  p.setup = () => {
+    const canvas = p.createCanvas(p.windowWidth, p.windowHeight, p.WEBGL);
 
-    p.draw = () => {
-        p.clear();
-        p.normalMaterial();
-        p.scale(Math.max(p.windowWidth / 50, p.windowHeight / 50));
+    canvas.parent('stage');
+    canvas.position(0, 0);
+    canvas.elt.style.position = 'fixed';
+    canvas.style('z-index', '-1');
+  };
 
-        p.translate(0, 0, 0);
-        p.push();
-        p.rotateZ(p.frameCount * 0.003);
-        p.rotateX(p.frameCount * 0.001);
-        p.rotateY(p.frameCount * 0.007);
-        p.torus(75, 35);
-        p.pop();
-    }
+  p.draw = () => {
+    p.clear();
+    p.normalMaterial();
+    p.scale(Math.max(p.windowWidth / 50, p.windowHeight / 50));
 
-    p.windowResized = () => {
-        p.resizeCanvas(p.windowWidth, p.windowHeight);
-    }
-}
+    p.translate(0, 0, 0);
+    p.push();
+    p.rotateZ(p.frameCount * 0.003);
+    p.rotateX(p.frameCount * 0.001);
+    p.rotateY(p.frameCount * 0.007);
+    p.torus(75, 35);
+    p.pop();
+  };
+
+  p.windowResized = () => {
+    p.resizeCanvas(p.windowWidth, p.windowHeight);
+  };
+};
 
 export default donut;
