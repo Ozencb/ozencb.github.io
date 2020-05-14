@@ -54,6 +54,7 @@ main {
   width: 100vw;
   height: 100%;
   overflow-y: scroll;
+  scroll-snap-type: y mandatory;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -220,11 +221,6 @@ a:hover,
 
 /* Small Devices*/
 @media only screen and (max-width: 600px) {
-  main {
-    scroll-snap-type: y proximity;
-
-  }
-
   .intro .name {
     font-size: 5em;
     margin: 3rem 0 1rem 0;
@@ -305,10 +301,6 @@ a:hover,
 
 /* Base for wider devices */
 @media all and (min-width: 600px) {
-  main {
-    scroll-snap-type: y mandatory;
-  }
-
   .intro .name {
     font-size: 6em;
     margin: 5rem 0 0 0;
