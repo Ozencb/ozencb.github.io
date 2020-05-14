@@ -35,7 +35,7 @@ const cubeGrid = (p5) => {
     cols = 3;
     depths = 3;
 
-    theta = 0;
+    theta = p.random();
 
     planeWidth = tx * (cols - 1);
     planeHeight = ty * (rows - 1);

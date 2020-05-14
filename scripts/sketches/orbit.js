@@ -6,6 +6,8 @@ const globe = (p5) => {
   const radius = 1000;
   const size = 3;
 
+  let theta;
+
   p.setup = () => {
     const canvas = p.createCanvas(p.windowWidth, p.windowHeight, p.WEBGL);
 
@@ -13,6 +15,12 @@ const globe = (p5) => {
     canvas.position(0, 0);
     canvas.elt.style.position = 'fixed';
     canvas.style('z-index', '-1');
+    
+    theta = p.random();
+    
+    p.rotateX(theta * Math.random());
+    p.rotateY(theta * Math.random());
+    p.rotateZ(theta * Math.random());
   };
 
   p.draw = () => {
@@ -21,10 +29,9 @@ const globe = (p5) => {
 
     p.normalMaterial();
 
-
-    p.rotateX(p.frameCount * 0.002);
-    p.rotateY(p.frameCount * 0.002);
-    p.rotateZ(p.frameCount * 0.002);
+    p.rotateX(theta);
+    p.rotateY(theta);
+    p.rotateZ(theta);
 
     for (let i = 0; i <= 12; i += 1) {
       for (let j = 0; j <= 12; j += 1) {
@@ -43,6 +50,7 @@ const globe = (p5) => {
         p.pop();
       }
     }
+    theta += 0.001;
   };
 
   const resizeCanvas = () => {
