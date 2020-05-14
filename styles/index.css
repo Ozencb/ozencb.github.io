@@ -7,6 +7,20 @@
 
 @font-face {
   font-family: 'Montserrat';
+  src: local('Montserrat-Regular'), url('../assets/fonts/Montserrat-Regular.ttf');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: local('Montserrat-Medium'), url('../assets/fonts/Montserrat-Medium.ttf');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Montserrat';
   src: local('Montserrat-Bold'), url('../assets/fonts/Montserrat-Bold.ttf');
   font-weight: 700;
   font-style: normal;
@@ -15,6 +29,7 @@
 :root {
   --bg-color: #171718;
   --primary-color: #e4e0d7;
+  --primary-brighter: #efefef;
 }
 
 html,
@@ -59,7 +74,8 @@ svg {
 
 hr {
   border: 2px solid;
-  width: 15vw;
+  width: 50%;
+  margin: 0.5rem auto auto 0;
   margin-bottom: 1rem;
 }
 
@@ -102,20 +118,63 @@ hr {
 
 .about .text {
   font-size: 2em;
+  font-weight: 700;
   text-align: center;
   width: 75%;
 }
 
 .about .details {
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  flex-direction: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
   justify-content: space-evenly;
   width: 100%;
   margin: auto 0;
 }
 
-.details .item {
-  margin: 0 auto 1rem auto;
+.grid.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.grid .header {
+  font-size: 2em;
+  margin-bottom: 2rem;
+}
+
+.grid .item {
+  display: grid;
+  gap: 0rem;
+  grid-auto-rows: 2rem;
+  grid-template-columns: repeat(5, 1fr);
+
+  grid-template-areas:
+    "year first first first first"
+    "year second second second second";
+}
+
+.item .first-line {
+  grid-area: first;
+  font-size: 1em;
+  align-self: flex-end;
+  font-weight: 700;
+}
+
+.item .second-line {
+  grid-area: second;
+  font-size: 0.9em;
+  align-self: flex-start;
+  font-weight: 400;
+}
+
+.item .year {
+  grid-area: year;
+  align-self: center;
+  font-size: 0.8em;
+  font-weight: 700;
+  text-align: center;
+  transform: rotate(270deg);
+  transform-origin: 0, 0;
 }
 
 .education.container {}
@@ -186,12 +245,12 @@ a:hover,
 }
 
 .colours-inverted {
-  background-color: var(--primary-color);
+  background-color: var(--primary-brighter);
   color: var(--bg-color);
 }
 
 .svg-fill-normal {
-  fill: var(--primary-color);
+  fill: var(--primary-brighter);
 }
 
 .svg-fill-inverted {
