@@ -1,160 +1,166 @@
+import debounce from 'lodash.debounce';
 import SimplexNoise from 'simplex-noise';
-
 import {
-    draw_line,
-    draw_poly
+  drawLine,
+  drawPoly,
 } from '../utils/display';
 
-const terrain = (p) => {
-    console.log("Topographic by Kjetil Midtgarden Golid.");
-    console.log("Link to project: https://github.com/kgolid/topographic");
+const terrain = (p5) => {
+  console.info('Topographic by Kjetil Midtgarden Golid.');
+  console.info('Link to project: https://github.com/kgolid/topographic');
 
-    const cell_dim = 5;
-    let scale = 1;
-    let nHeight;
-    let nWidth;
+  const p = p5;
 
-    const noise_dim = 0.002;
-    const persistence = 0.4;
+  const cellDim = 5;
+  const scale = 2;
+  let nHeight;
+  let nWidth;
 
-    let THE_SEED;
-    let simplex;
-    let noise_grid;
+  const noiseDim = 0.002;
+  const persistence = 0.4;
 
-    const bgColor = '#000';
-    const strokeColor = '#F7347A';
-    const seaColor = '#00FFFF';
+  let THE_SEED;
+  let simplex;
+  let noiseGrid;
 
-    p.setup = () => {
-        let canvas = p.createCanvas(p.windowWidth, p.windowHeight);
+  const strokeColor = '#F7347A';
+  const seaColor = '#000000';
 
-        canvas.parent('stage');
-        canvas.position(0, 0);
-        canvas.style('z-index', '-1');
-    };
+  p.setup = () => {
+    const canvas = p.createCanvas(p.windowWidth, p.windowHeight);
 
-    p.draw = () => {
-        p.clear();
-        p.scale(scale);
+    canvas.parent('stage');
+    canvas.position(0, 0);
+    canvas.elt.style.position = 'fixed';
+    canvas.style('z-index', '-1');
 
-        display();
+    p.stroke(strokeColor);
+    p.strokeWeight(0.5);
+  };
+
+  const getNoise = (x, y) => noiseGrid[y][x];
+
+  const sumOctave = (numIterations, x, y) => {
+    let noise = 0;
+    let maxAmp = 0;
+    let amp = 1;
+    let freq = noiseDim;
+
+    for (let i = 0; i < numIterations; i += 1) {
+      noise += simplex.noise2D(14.3 + x * freq, 5.71 + y * freq) * amp;
+      maxAmp += amp;
+      amp *= persistence;
+      freq *= 2;
     }
+    return noise / maxAmp;
+  };
 
-    const display = () => {
-        setValues();
-        p.noLoop();
-
-        process_grid(0.3, 10, 0.7 / 10, [seaColor]);
-        process_grid(-1, 120, 1.3 / 120, []);
+  const buildNoiseGrid = () => {
+    const grid = [];
+    for (let y = 0; y < nHeight + 1; y += 1) {
+      const row = [];
+      for (let x = 0; x < nWidth + 1; x += 1) {
+        row.push(sumOctave(16, x, y));
+      }
+      grid.push(row);
     }
+    return grid;
+  };
 
-    const setValues = () => {
-        nHeight = (p.windowHeight / 5) / scale;
-        nWidth = (p.windowWidth / 5) / scale;
+  const setValues = () => {
+    nHeight = (p.windowHeight / 5) / scale;
+    nWidth = (p.windowWidth / 5) / scale;
 
-        THE_SEED = p.floor(p.random(999));
-        simplex = new SimplexNoise(THE_SEED);
-        p.randomSeed(THE_SEED);
+    THE_SEED = p.floor(p.random(999));
+    simplex = new SimplexNoise(THE_SEED);
+    p.randomSeed(THE_SEED);
 
-        noise_grid = build_noise_grid();
+    noiseGrid = buildNoiseGrid();
+  };
+
+  const buildThresholdList = (init, steps, delta) => {
+    const thresholds = [];
+    for (let t = 0; t <= steps; t += 1) {
+      const col = seaColor;
+      thresholds.push({
+        val: init + t * delta,
+        col,
+      });
     }
+    return thresholds;
+  };
 
-    const process_grid = (init, steps, delta, fill_palette) => {
-        const thresholds = build_threshold_list(init, steps, delta);
-        const filled = fill_palette.length !== 0;
+  const processCell = (x, y, filled, thresholds, delta) => {
+    const v1 = getNoise(x, y);
+    const v2 = getNoise(x + 1, y);
+    const v3 = getNoise(x + 1, y + 1);
+    const v4 = getNoise(x, y + 1);
 
-        p.push();
-        for (let y = 0; y < nHeight; y++) {
-            p.push();
-            for (let x = 0; x < nWidth; x++) {
-                process_cell(x, y, filled, thresholds, delta);
-                p.translate(cell_dim, 0);
-            }
-            p.pop();
-            p.translate(0, cell_dim);
-        }
-        p.pop();
+    const min = p.min([v1, v2, v3, v4]);
+    const max = p.max([v1, v2, v3, v4]);
+    const relevantThresholds = thresholds.filter(
+      (t) => t.val >= min - delta && t.val <= max,
+    );
+
+    Object.values(relevantThresholds).forEach((t) => {
+      const b1 = v1 > t.val ? 8 : 0;
+      const b2 = v2 > t.val ? 4 : 0;
+      const b3 = v3 > t.val ? 2 : 0;
+      const b4 = v4 > t.val ? 1 : 0;
+
+      const id = b1 + b2 + b3 + b4;
+
+      if (filled) {
+        p.fill(t.col);
+        drawPoly(p, id, v1, v2, v3, v4, t.val, cellDim);
+      } else {
+        p.stroke(strokeColor);
+        drawLine(p, id, v1, v2, v3, v4, t.val, cellDim);
+      }
+    });
+  };
+
+  const processGrid = (init, steps, delta, fillPalette) => {
+    const thresholds = buildThresholdList(init, steps, delta);
+    const filled = fillPalette.length !== 0;
+
+    p.push();
+    for (let y = 0; y < nHeight; y += 1) {
+      p.push();
+      for (let x = 0; x < nWidth; x += 1) {
+        processCell(x, y, filled, thresholds, delta);
+        p.translate(cellDim, 0);
+      }
+      p.pop();
+      p.translate(0, cellDim);
     }
+    p.pop();
+  };
 
-    const process_cell = (x, y, filled, thresholds, delta) => {
-        const v1 = get_noise(x, y);
-        const v2 = get_noise(x + 1, y);
-        const v3 = get_noise(x + 1, y + 1);
-        const v4 = get_noise(x, y + 1);
+  const display = () => {
+    setValues();
+    p.noLoop();
 
-        const min = p.min([v1, v2, v3, v4]);
-        const max = p.max([v1, v2, v3, v4]);
-        const relevant_thresholds = thresholds.filter(
-            t => t.val >= min - delta && t.val <= max
-        );
+    processGrid(0.3, 10, 0.7 / 10, [seaColor]);
+    processGrid(-1, 120, 1.3 / 120, []);
+  };
 
-        for (const t of relevant_thresholds) {
-            const b1 = v1 > t.val ? 8 : 0;
-            const b2 = v2 > t.val ? 4 : 0;
-            const b3 = v3 > t.val ? 2 : 0;
-            const b4 = v4 > t.val ? 1 : 0;
+  p.draw = () => {
+    p.clear();
+    p.scale(scale);
 
-            const id = b1 + b2 + b3 + b4;
+    display();
+  };
 
-            if (filled) {
-                p.fill(t.col);
-                draw_poly(p, id, v1, v2, v3, v4, t.val, cell_dim);
-            } else {
-                p.stroke(strokeColor);
-                draw_line(p, id, v1, v2, v3, v4, t.val, cell_dim);
-            }
-        }
-    }
+  const resizeCanvas = () => {
+    p.resizeCanvas(p.windowWidth, p.windowHeight);
+  };
 
-    const get_noise = (x, y) => {
-        return noise_grid[y][x];
-    }
+  const debounceResize = debounce(resizeCanvas, 100);
 
-    const build_noise_grid = () => {
-        let grid = [];
-        for (let y = 0; y < nHeight + 1; y++) {
-            let row = [];
-            for (let x = 0; x < nWidth + 1; x++) {
-                row.push(sum_octave(16, x, y));
-            }
-            grid.push(row);
-        }
-        return grid;
-    }
-
-    const build_threshold_list = (init, steps, delta) => {
-        let thresholds = [];
-        for (let t = 0; t <= steps; t++) {
-            let col = seaColor;
-            thresholds.push({
-                val: init + t * delta,
-                col: col
-            });
-        }
-        return thresholds;
-    }
-
-    const sum_octave = (num_iterations, x, y) => {
-        let noise = 0;
-        let maxAmp = 0;
-        let amp = 1;
-        let freq = noise_dim;
-
-        for (let i = 0; i < num_iterations; i++) {
-            noise += simplex.noise2D(14.3 + x * freq, 5.71 + y * freq) * amp;
-            maxAmp += amp;
-            amp *= persistence;
-            freq *= 2;
-        }
-        return noise / maxAmp;
-    }
-
-    p.windowResized = () => {
-        p.resizeCanvas(p.windowWidth, p.windowHeight);
-        setTimeout(() => {
-            p.redraw();
-        }, 1000);
-    }
-}
+  p.windowResized = () => {
+    debounceResize();
+  };
+};
 
 export default terrain;
