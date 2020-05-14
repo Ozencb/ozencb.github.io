@@ -25,38 +25,24 @@ const resizeWindow = () => {
   document.documentElement.style.setProperty('--vh', `${vh}px`);
 };
 
-const changeEveryStyle = (elements, className, method) => {
-  elements.forEach((element) => {
-    if (method === 'add') {
-      element.classList.add(className);
-    } else if (method === 'remove') {
-      element.classList.remove(className);
-    }
-  });
-};
-
 const scrollEvent = () => {
   const stage = document.querySelector('#stage');
   const arrow = document.querySelector('#arrow');
-  const svgs = document.querySelectorAll('.svg-path');
-  const hrs = document.querySelectorAll('.hr');
 
-  if (main.scrollTop > 50) {
-    arrow.classList.add('invisible');
+  if (main.scrollTop > window.innerHeight / 2) {
+    document.documentElement.style.setProperty('--bg-color', '#efefef');
+    document.documentElement.style.setProperty('--primary-color', '#171718');
     stage.classList.add('invisible');
   } else {
-    arrow.classList.remove('invisible');
+    document.documentElement.style.setProperty('--bg-color', '#171718');
+    document.documentElement.style.setProperty('--primary-color', '#e4e0d7');
     stage.classList.remove('invisible');
   }
 
-  if (main.scrollTop > window.innerHeight / 2) {
-    document.body.classList.add('colours-inverted');
-    changeEveryStyle(svgs, 'svg-fill-inverted', 'add');
-    changeEveryStyle(hrs, 'svg-fill-inverted', 'add');
+  if (main.scrollTop > 50) {
+    arrow.classList.add('invisible');
   } else {
-    document.body.classList.remove('colours-inverted');
-    changeEveryStyle(svgs, 'svg-fill-inverted', 'remove');
-    changeEveryStyle(hrs, 'svg-fill-inverted', 'remove');
+    arrow.classList.remove('invisible');
   }
 
   resizeWindow();

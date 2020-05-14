@@ -39,9 +39,9 @@ body {
 }
 
 body {
+  background-color: var(--bg-color);
+  color: var(--primary-color);
   font-weight: 700;
-  min-width: 300px;
-  min-height: 450px;
   scroll-behavior: smooth;
   transition: background-color 1s ease;
   overflow-x: hidden;
@@ -60,7 +60,6 @@ main {
 
 main section {
   flex-basis: calc(var(--vh, 1vh) * 100);
-  ;
   flex-grow: 1;
   flex-shrink: 0;
   width: 90vw;
@@ -72,20 +71,13 @@ svg {
   width: 2rem;
 }
 
-hr {
-  border: 2px solid;
-  width: 50%;
-  margin: 0.5rem auto auto 0;
-  margin-bottom: 1rem;
-}
-
 .intro {
   font-family: 'Metropolis', sans-serif;
   display: flex;
   flex-direction: column;
 }
 
-.intro #stage {
+.intro .stage {
   z-index: -1;
 }
 
@@ -133,21 +125,19 @@ hr {
   flex-wrap: nowrap;
 }
 
-.details .seperator {
-  display: none;
-}
-
-
-.grid.container {
+.details .container {
   display: flex;
+  flex-basis: 30rem;
   flex-direction: column;
 }
 
-.grid .header {
+.details .seperator {
   display: none;
-  font-size: 2em;
-  text-align: center;
-  margin-bottom: 2rem;
+  border: 2px solid;
+  border-color: var(--primary-color);
+  width: 50%;
+  margin: 0.5rem auto auto 0;
+  margin-bottom: 1rem;
 }
 
 .grid .item {
@@ -190,38 +180,13 @@ hr {
   transform: rotate(270deg);
 }
 
-.education.container,
-.experience.container {
-  flex-basis: 30rem;
-}
-
-.education.container {}
-
-.education.item {}
-
-.education .school {}
-
-.education .department {}
-
-.education .year {}
-
-.experience.container {}
-
-.experience.item {}
-
-.experience .company {}
-
-.experience .position {}
-
-.experience .year {}
-
 .about .links {
   display: flex;
   flex-direction: row;
   margin: auto auto 1rem auto;
 }
 
-.about .links .link.social {
+.links .link.social {
   margin: 0 1rem 0 0;
 }
 
@@ -237,7 +202,6 @@ a:hover,
 ::-webkit-scrollbar {
   width: 0px;
   background: transparent;
-  /* make scrollbar transparent */
 }
 
 .disable-select {
@@ -257,22 +221,8 @@ a:hover,
   opacity: 0;
 }
 
-.colours-normal {
-  background-color: var(--bg-color);
-  color: var(--primary-color);
-}
-
-.colours-inverted {
-  background-color: var(--primary-brighter);
-  color: var(--bg-color);
-}
-
-.svg-fill-normal {
-  fill: var(--primary-brighter);
-}
-
-.svg-fill-inverted {
-  fill: var(--bg-color);
+.svg-fill {
+  fill: var(--primary-color);
 }
 
 @keyframes bounce {
@@ -298,11 +248,11 @@ a:hover,
 /* ===== Breakpoints ===== */
 
 @media only screen and (max-width: 600px) {
-  .name {
+  .intro .name {
     font-size: 4rem;
   }
 
-  .title {
+  .intro .title {
     font-size: 2rem;
   }
 
@@ -314,7 +264,6 @@ a:hover,
 
   .about .details {
     flex-direction: column;
-    margin: 1rem 0;
   }
 
   .details .seperator {
@@ -323,31 +272,38 @@ a:hover,
     margin: 2rem 0;
   }
 
-  .year .year-break {
-    display: none;
-  }
-
   .grid .item {
     display: flex;
     flex-direction: column;
+    flex-basis: 4rem;
+    align-items: flex-start;
+    justify-items: flex-start;
   }
 
   .item .first-line {
-    align-self: flex-start;
     font-size: 0.9em;
+    align-self: flex-start;
+    justify-self: center;
   }
 
   .item .second-line {
     font-size: 0.8em;
+    align-self: flex-start;
+    justify-self: center;
   }
 
   .item .year {
-    grid-area: year;
     font-size: 0.7em;
     font-weight: 700;
     width: 100%;
+    align-self: flex-start;
+    justify-self: center;
     text-align: start;
     transform: rotate(0deg);
+  }
+
+  .year .year-break {
+    display: none;
   }
 
   .education.container,
