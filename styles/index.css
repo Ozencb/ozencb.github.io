@@ -83,13 +83,11 @@ svg {
 
 .intro .name {
   line-height: 0.9;
-  font-size: 6rem;
-  margin: 5rem 0 0 0;
+
 }
 
 .intro .title {
   margin: 8rem 0 1rem 0;
-  font-size: 4rem;
   line-height: 1;
 }
 
@@ -109,25 +107,17 @@ svg {
 }
 
 .about .text {
-  font-size: 2em;
   font-weight: 700;
   text-align: center;
-  margin-top: 3rem;
-  width: 75%;
 }
 
 .about .details {
   display: flex;
-  flex-direction: row;
   justify-content: center;
-  width: 100%;
-  margin: auto 0;
-  flex-wrap: nowrap;
 }
 
 .details .container {
   display: flex;
-  flex-basis: 30rem;
   flex-direction: column;
 }
 
@@ -140,44 +130,21 @@ svg {
   margin-bottom: 1rem;
 }
 
-.grid .item {
-  display: grid;
-  grid-auto-rows: 2rem;
-  grid-template-columns: repeat(5, 1fr);
-  align-items: center;
-  justify-items: start;
-  grid-template-areas:
-    "year first first first first"
-    "year second second second second";
-}
-
 .item .first-line {
   grid-area: first;
-  font-size: 1em;
   align-self: flex-end;
   font-weight: 700;
 }
 
 .item .second-line {
   grid-area: second;
-  font-size: 0.9em;
   align-self: flex-start;
   font-weight: 400;
 }
 
-.item .first-line,
-.item .second-line {
-  justify-self: start;
-}
-
 .item .year {
-  grid-area: year;
-  font-size: 0.8em;
   font-weight: 700;
-  width: 4rem;
   margin: auto auto auto 0;
-  text-align: center;
-  transform: rotate(270deg);
 }
 
 .about .links {
@@ -221,7 +188,7 @@ a:hover,
   opacity: 0;
 }
 
-.svg-fill {
+.svg-path {
   fill: var(--primary-color);
 }
 
@@ -245,25 +212,29 @@ a:hover,
 }
 
 
+
+
+
+
 /* ===== Breakpoints ===== */
 
+/* Small Devices*/
 @media only screen and (max-width: 600px) {
-  .intro .name {
-    font-size: 4rem;
-  }
+  .intro .name {}
 
-  .intro .title {
-    font-size: 2rem;
-  }
+  .intro .title {}
 
-  .about .text {
-    font-size: 1em;
-    width: 85%;
-    margin-top: 2rem;
-  }
+  .about .text {}
 
   .about .details {
     flex-direction: column;
+    width: 100%;
+    margin: auto 0;
+    flex-wrap: nowrap;
+  }
+
+  .details .container {
+    flex-basis: 30rem;
   }
 
   .details .seperator {
@@ -272,7 +243,7 @@ a:hover,
     margin: 2rem 0;
   }
 
-  .grid .item {
+  .container .item {
     display: flex;
     flex-direction: column;
     flex-basis: 4rem;
@@ -288,15 +259,12 @@ a:hover,
 
   .item .second-line {
     font-size: 0.8em;
-    align-self: flex-start;
     justify-self: center;
   }
 
   .item .year {
     font-size: 0.7em;
-    font-weight: 700;
     width: 100%;
-    align-self: flex-start;
     justify-self: center;
     text-align: start;
     transform: rotate(0deg);
@@ -312,14 +280,84 @@ a:hover,
   }
 }
 
+
+/* Base for wider devices */
 @media only screen and (min-width: 600px) {
+  main section {}
+
+  .intro .name {
+    font-size: 6rem;
+    margin: 5rem 0 0 0;
+  }
+
+  .intro .title {
+    font-size: 4rem;
+  }
+
+  .about {}
+
+  .about .text {
+    font-size: 2em;
+    width: 75%;
+    margin-top: 3rem;
+  }
+
+  .about .details {
+    flex-direction: row;
+    width: 100%;
+    margin: auto 0;
+    flex-wrap: nowrap;
+  }
+
+  .details .container {
+    flex-basis: 30rem;
+  }
+
+  .container .item {
+    display: grid;
+    grid-auto-rows: 2rem;
+    grid-template-columns: repeat(5, 1fr);
+    align-items: center;
+    justify-items: start;
+    grid-template-areas:
+      "year first first first first"
+      "year second second second second";
+  }
+
+  .item .first-line {
+    font-size: 1em;
+
+  }
+
+  .item .second-line {
+    font-size: 0.9em;
+
+  }
+
+  .item .first-line,
+  .item .second-line {}
+
+  .item .year {
+    grid-area: year;
+    font-size: 0.8em;
+    width: 4rem;
+    text-align: center;
+    transform: rotate(270deg);
+  }
+
   .year .year-dash {
     display: none;
   }
 }
 
+
+/* Medium Devices */
 @media only screen and (min-width: 768px) {}
 
+
+/* Large Screens*/
 @media only screen and (min-width: 992px) {}
 
+
+/* Larger screens*/
 @media only screen and (min-width: 1200px) {}
