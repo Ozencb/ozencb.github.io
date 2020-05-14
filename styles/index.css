@@ -58,20 +58,21 @@ main {
   -webkit-overflow-scrolling: touch;
 }
 
-main section {
-  flex-basis: calc(var(--vh, 1vh) * 100);
-  flex-grow: 1;
-  flex-shrink: 0;
-  width: 90vw;
-  scroll-snap-align: start;
-}
-
 svg {
   height: 2rem;
   width: 2rem;
 }
 
-.intro {
+.main section {
+  flex-basis: calc(var(--vh, 1vh) * 100);
+  flex-grow: 1;
+  flex-shrink: 0;
+  width: 90vw;
+  min-height: 550px;
+  scroll-snap-align: start;
+}
+
+.main .intro {
   font-family: 'Metropolis', sans-serif;
   display: flex;
   flex-direction: column;
@@ -83,11 +84,9 @@ svg {
 
 .intro .name {
   line-height: 0.9;
-
 }
 
 .intro .title {
-  margin: 8rem 0 1rem 0;
   line-height: 1;
 }
 
@@ -98,17 +97,19 @@ svg {
   animation: bounce 2s infinite;
 }
 
-.about {
+.main .about {
   font-family: 'Montserrat', sans-serif;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  max-width: 60rem;
 }
 
 .about .text {
   font-weight: 700;
   text-align: center;
+  line-height: 1.2;
 }
 
 .about .details {
@@ -123,7 +124,7 @@ svg {
 
 .details .seperator {
   display: none;
-  border: 2px solid;
+  border-bottom: 3px solid;
   border-color: var(--primary-color);
   width: 50%;
   margin: 0.5rem auto auto 0;
@@ -145,12 +146,13 @@ svg {
 .item .year {
   font-weight: 700;
   margin: auto auto auto 0;
+  color: #fc464f;
 }
 
 .about .links {
   display: flex;
   flex-direction: row;
-  margin: auto auto 1rem auto;
+  margin: 3rem auto 1rem auto;
 }
 
 .links .link.social {
@@ -220,11 +222,22 @@ a:hover,
 
 /* Small Devices*/
 @media only screen and (max-width: 600px) {
-  .intro .name {}
+  .intro .name {
+    font-size: 5em;
+    margin: 3rem 0 1rem 0;
+  }
 
-  .intro .title {}
+  .intro .title {
+    font-size: 3em;
+  }
 
-  .about .text {}
+  .about {}
+
+  .about .text {
+    font-size: 1.2em;
+    width: 95%;
+    margin: 3rem auto;
+  }
 
   .about .details {
     flex-direction: column;
@@ -233,9 +246,7 @@ a:hover,
     flex-wrap: nowrap;
   }
 
-  .details .container {
-    flex-basis: 30rem;
-  }
+  .details .container {}
 
   .details .seperator {
     display: block;
@@ -244,29 +255,33 @@ a:hover,
   }
 
   .container .item {
-    display: flex;
-    flex-direction: column;
-    flex-basis: 4rem;
-    align-items: flex-start;
-    justify-items: flex-start;
+    margin-bottom: 1rem;
+    display: grid;
+    gap: 0.3rem;
+    grid-template-rows: repeat(1, 1fr);
+    grid-template-areas:
+      "year"
+      "first"
+      "second";
+  }
+
+  .container .item:last-child {
+    margin-bottom: 0;
   }
 
   .item .first-line {
-    font-size: 0.9em;
-    align-self: flex-start;
-    justify-self: center;
+    font-size: 1em;
   }
 
   .item .second-line {
     font-size: 0.8em;
-    justify-self: center;
+    margin-bottom: 1rem;
   }
 
   .item .year {
-    font-size: 0.7em;
+    font-size: 0.6em;
+    font-weight: 400;
     width: 100%;
-    justify-self: center;
-    text-align: start;
     transform: rotate(0deg);
   }
 
@@ -280,24 +295,25 @@ a:hover,
   }
 }
 
+/* Small devices portrait */
+
+
 
 /* Base for wider devices */
-@media only screen and (min-width: 600px) {
-  main section {}
-
+@media all and (min-width: 600px) {
   .intro .name {
-    font-size: 6rem;
+    font-size: 6em;
     margin: 5rem 0 0 0;
   }
 
   .intro .title {
-    font-size: 4rem;
+    font-size: 4em;
   }
 
   .about {}
 
   .about .text {
-    font-size: 2em;
+    font-size: 1.3em;
     width: 75%;
     margin-top: 3rem;
   }
@@ -311,6 +327,7 @@ a:hover,
 
   .details .container {
     flex-basis: 30rem;
+    justify-content: space-between;
   }
 
   .container .item {
@@ -326,12 +343,10 @@ a:hover,
 
   .item .first-line {
     font-size: 1em;
-
   }
 
   .item .second-line {
     font-size: 0.9em;
-
   }
 
   .item .first-line,
@@ -343,6 +358,7 @@ a:hover,
     width: 4rem;
     text-align: center;
     transform: rotate(270deg);
+    align-content: flex-end;
   }
 
   .year .year-dash {
@@ -352,12 +368,29 @@ a:hover,
 
 
 /* Medium Devices */
-@media only screen and (min-width: 768px) {}
+@media only screen and (min-width: 768px) {
+  .about .text {
+    font-size: 1.5em;
+    margin-top: 4rem;
+  }
+}
 
 
 /* Large Screens*/
-@media only screen and (min-width: 992px) {}
+@media only screen and (min-width: 992px) {
+  .about .text {
+    font-size: 2em;
+  }
 
+  .item .first-line {
+    font-size: 1.2em;
+  }
 
-/* Larger screens*/
-@media only screen and (min-width: 1200px) {}
+  .item .second-line {
+    font-size: 1em;
+  }
+
+  .item .year {
+    font-size: 0.9em;
+  }
+}
