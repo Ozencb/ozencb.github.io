@@ -120,17 +120,23 @@ hr {
   font-size: 2em;
   font-weight: 700;
   text-align: center;
+  margin-top: 3rem;
   width: 75%;
 }
 
 .about .details {
-  display: grid;
-  flex-direction: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-  justify-content: space-evenly;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   width: 100%;
   margin: auto 0;
+  flex-wrap: nowrap;
 }
+
+.details .seperator {
+  display: none;
+}
+
 
 .grid.container {
   display: flex;
@@ -138,16 +144,18 @@ hr {
 }
 
 .grid .header {
+  display: none;
   font-size: 2em;
+  text-align: center;
   margin-bottom: 2rem;
 }
 
 .grid .item {
   display: grid;
-  gap: 0rem;
   grid-auto-rows: 2rem;
   grid-template-columns: repeat(5, 1fr);
-
+  align-items: center;
+  justify-items: start;
   grid-template-areas:
     "year first first first first"
     "year second second second second";
@@ -167,14 +175,24 @@ hr {
   font-weight: 400;
 }
 
+.item .first-line,
+.item .second-line {
+  justify-self: start;
+}
+
 .item .year {
   grid-area: year;
-  align-self: center;
   font-size: 0.8em;
   font-weight: 700;
+  width: 4rem;
+  margin: auto auto auto 0;
   text-align: center;
   transform: rotate(270deg);
-  transform-origin: 0, 0;
+}
+
+.education.container,
+.experience.container {
+  flex-basis: 30rem;
 }
 
 .education.container {}
@@ -276,6 +294,9 @@ a:hover,
   }
 }
 
+
+/* ===== Breakpoints ===== */
+
 @media only screen and (max-width: 600px) {
   .name {
     font-size: 4rem;
@@ -284,9 +305,62 @@ a:hover,
   .title {
     font-size: 2rem;
   }
+
+  .about .text {
+    font-size: 1em;
+    width: 85%;
+    margin-top: 2rem;
+  }
+
+  .about .details {
+    flex-direction: column;
+    margin: 1rem 0;
+  }
+
+  .details .seperator {
+    display: block;
+    width: 100%;
+    margin: 2rem 0;
+  }
+
+  .year .year-break {
+    display: none;
+  }
+
+  .grid .item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .item .first-line {
+    align-self: flex-start;
+    font-size: 0.9em;
+  }
+
+  .item .second-line {
+    font-size: 0.8em;
+  }
+
+  .item .year {
+    grid-area: year;
+    font-size: 0.7em;
+    font-weight: 700;
+    width: 100%;
+    text-align: start;
+    transform: rotate(0deg);
+  }
+
+  .education.container,
+  .experience.container {
+    flex-basis: 10rem;
+  }
 }
 
-@media only screen and (min-width: 600px) {}
+@media only screen and (min-width: 600px) {
+  .year .year-dash {
+    display: none;
+  }
+}
 
 @media only screen and (min-width: 768px) {}
 
