@@ -68,7 +68,6 @@ svg {
   flex-grow: 1;
   flex-shrink: 0;
   width: 90vw;
-  min-height: 550px;
   scroll-snap-align: start;
 }
 
