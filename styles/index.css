@@ -296,6 +296,10 @@ a:hover,
   .experience.container {
     flex-basis: 10rem;
   }
+
+  .about .links {
+    scroll-snap-align: end;
+  }
 }
 
 
