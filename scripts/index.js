@@ -47,8 +47,18 @@ const scrollEvent = () => {
   resizeWindow();
 };
 
+const showRandomSketch = () => {
+  const sketches = [cubeGrid, donut, lorenz, orbit, ring, terrain];
+
+  const randomNumGenerator = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
+
+  const sketch = sketches[randomNumGenerator(0, sketches.length - 1)];
+  new p5(sketch);
+}
+
 const initialize = () => {
   resizeWindow();
+  showRandomSketch();
 
   document.querySelector('#intro').scrollIntoView();
 
@@ -61,12 +71,6 @@ const initialize = () => {
     });
   });
 
-  const sketches = [cubeGrid, donut, lorenz, orbit, ring, terrain];
-
-  const randomNumGenerator = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
-
-  const sketch = sketches[randomNumGenerator(0, sketches.length - 1)];
-  new p5(cubeGrid);
 };
 
 window.addEventListener('load', initialize);
