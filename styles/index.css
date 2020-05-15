@@ -300,7 +300,7 @@ a:hover,
 
 
 /* Base for wider devices */
-@media all and (min-width: 600px) {
+@media all and (min-width: 601px) {
   .intro .name {
     font-size: 6em;
     margin: 5rem 0 0 0;
