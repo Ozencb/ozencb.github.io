@@ -6,7 +6,8 @@ const globe = (p5) => {
   const radius = 1000;
   const size = 3;
 
-  let theta;
+  let theta = Math.random() * 1000;
+  let rotationDirection = Math.random() >= 0.5;
 
   p.setup = () => {
     const canvas = p.createCanvas(p.windowWidth, p.windowHeight, p.WEBGL);
@@ -30,8 +31,11 @@ const globe = (p5) => {
     p.normalMaterial();
 
     p.rotateX(theta);
-    p.rotateY(theta);
-    p.rotateZ(theta);
+    if(rotationDirection) {
+      p.rotateZ(theta);
+    } else {
+      p.rotateY(theta);
+    }
 
     for (let i = 0; i <= 12; i += 1) {
       for (let j = 0; j <= 12; j += 1) {

@@ -10,10 +10,10 @@ const cubeGrid = (p5) => {
   let rows;
   let cols;
   let depths;
-  let theta;
   let planeWidth;
   let planeHeight;
   let planeDepth;
+  let theta = Math.random() * 1000;
 
   p.setup = () => {
     const canvas = p.createCanvas(p.windowWidth, p.windowHeight, p.WEBGL);
@@ -35,8 +35,6 @@ const cubeGrid = (p5) => {
     cols = 3;
     depths = 3;
 
-    theta = p.random();
-
     planeWidth = tx * (cols - 1);
     planeHeight = ty * (rows - 1);
     planeDepth = tz * (depths - 1);
@@ -54,7 +52,6 @@ const cubeGrid = (p5) => {
     p.translate(-planeWidth / 2, -planeHeight / 2, planeDepth / 2);
 
     p.noStroke();
-
 
     p.directionalLight(255, 0, 0, p.width, -p.height);
     p.directionalLight(0, 0, 255, -p.width, -p.height);

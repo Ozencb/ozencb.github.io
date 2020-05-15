@@ -2,6 +2,7 @@ import debounce from 'lodash.debounce';
 
 const donut = (p5) => {
   const p = p5;
+  let theta = Math.random() * 1000;
 
   p.setup = () => {
     const canvas = p.createCanvas(p.windowWidth, p.windowHeight, p.WEBGL);
@@ -10,6 +11,10 @@ const donut = (p5) => {
     canvas.position(0, 0);
     canvas.elt.style.position = 'fixed';
     canvas.style('z-index', '-1');
+
+    p.rotateX(theta * Math.random());
+    p.rotateY(theta * Math.random());
+    p.rotateZ(theta * Math.random());
   };
 
   p.draw = () => {
@@ -19,11 +24,12 @@ const donut = (p5) => {
 
     p.translate(0, 0, 0);
     p.push();
-    p.rotateZ(p.frameCount * 0.003);
-    p.rotateX(p.frameCount * 0.001);
-    p.rotateY(p.frameCount * 0.007);
+    p.rotateZ(theta);
+    p.rotateX(theta);
+    p.rotateY(theta);
     p.torus(75, 35);
     p.pop();
+    theta += 0.003;
   };
 
   const resizeCanvas = () => {

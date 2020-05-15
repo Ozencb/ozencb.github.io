@@ -1,12 +1,11 @@
 import debounce from 'lodash.debounce';
-import crossGrid from './sketches/crossGrid';
+
 import cubeGrid from './sketches/cubeGrid';
 import donut from './sketches/donut';
 import lorenz from './sketches/lorenz';
 import orbit from './sketches/orbit';
 import ring from './sketches/ring';
 import terrain from './sketches/terrain';
-import topography from './sketches/topography';
 
 console.info(`Welcome! Thanks for visiting my site. 
 Refresh page to see other generative backgrounds :)!
@@ -62,15 +61,12 @@ const initialize = () => {
     });
   });
 
-  const sketches = [
-    crossGrid, cubeGrid, donut, lorenz,
-    orbit, ring, terrain, topography,
-  ];
+  const sketches = [cubeGrid, donut, lorenz, orbit, ring, terrain];
 
   const randomNumGenerator = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
 
   const sketch = sketches[randomNumGenerator(0, sketches.length - 1)];
-  new p5(sketch);
+  new p5(cubeGrid);
 };
 
 window.addEventListener('load', initialize);
