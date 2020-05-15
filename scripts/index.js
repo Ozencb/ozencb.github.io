@@ -18,6 +18,7 @@ If you have any questions please let me know at: bilgiliozenc@gmail.com
 
 
 const main = document.querySelector('#main');
+let visual;
 
 const resizeWindow = () => {
   const vh = window.innerHeight * 0.01;
@@ -53,7 +54,12 @@ const showRandomSketch = () => {
   const randomNumGenerator = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
 
   const sketch = sketches[randomNumGenerator(0, sketches.length - 1)];
-  new p5(sketch);
+  visual = new p5(sketch);
+
+  document.querySelector('#main').addEventListener('click', () => {
+    visual.remove();
+    showRandomSketch();
+  })
 }
 
 const initialize = () => {
@@ -70,7 +76,6 @@ const initialize = () => {
       });
     });
   });
-
 };
 
 window.addEventListener('load', initialize);
