@@ -14,13 +14,6 @@
 
 @font-face {
   font-family: 'Montserrat';
-  src: local('Montserrat-Medium'), url('../assets/fonts/Montserrat-Medium.ttf');
-  font-weight: 500;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Montserrat';
   src: local('Montserrat-Bold'), url('../assets/fonts/Montserrat-Bold.ttf');
   font-weight: 700;
   font-style: normal;
@@ -111,6 +104,7 @@ svg {
   font-weight: 700;
   text-align: center;
   line-height: 1.2;
+  margin: auto auto 0 auto;
 }
 
 .about .details {
@@ -136,12 +130,14 @@ svg {
   grid-area: first;
   align-self: flex-end;
   font-weight: 700;
+  margin-bottom: 0.2rem;
 }
 
 .item .second-line {
   grid-area: second;
   align-self: flex-start;
   font-weight: 400;
+  margin-top: 0.2rem;
 }
 
 .item .year {
@@ -158,6 +154,10 @@ svg {
 
 .links .link.social {
   margin: 0 1rem 0 0;
+}
+
+.links .link.social:last-child {
+  margin: 0;
 }
 
 a:link,
@@ -302,7 +302,7 @@ a:hover,
 
 
 /* Base for wider devices */
-@media all and (min-width: 601px) {
+@media only screen and (min-width: 601px) {
   .intro .name {
     font-size: 6em;
     margin: 5rem 0 0 0;
@@ -315,9 +315,8 @@ a:hover,
   .about {}
 
   .about .text {
-    font-size: 1.3em;
+    font-size: 2em;
     width: 75%;
-    margin-top: 3rem;
   }
 
   .about .details {
@@ -372,8 +371,7 @@ a:hover,
 /* Medium Devices */
 @media only screen and (min-width: 768px) {
   .about .text {
-    font-size: 1.5em;
-    margin-top: 4rem;
+    font-size: 2em;
   }
 }
 
@@ -381,7 +379,7 @@ a:hover,
 /* Large Screens*/
 @media only screen and (min-width: 992px) {
   .about .text {
-    font-size: 2em;
+    font-size: 2.5em;
   }
 
   .item .first-line {
