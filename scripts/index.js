@@ -1,17 +1,13 @@
 import debounce from 'lodash.debounce';
 
-import cubeGrid from './sketches/cubeGrid';
 import donut from './sketches/donut';
-import lorenz from './sketches/lorenz';
 import orbit from './sketches/orbit';
 import ring from './sketches/ring';
-import terrain from './sketches/terrain';
 
-console.info(`Welcome! Thanks for visiting my site. 
-Refresh page to see other generative backgrounds :)!
+console.info(`Welcome! Thanks you for visiting my site.
 
-The generative backgrounds are written in P5.js.
-Some of these are inspired by/taken from other artists.
+If you liked the background visuals make sure to 
+refresh the page to see other generative backgrounds!
 
 If you have any questions please let me know at: bilgiliozenc@gmail.com
 `);
@@ -28,6 +24,12 @@ const scrollEvent = () => {
   const stage = document.querySelector('#stage');
   const arrow = document.querySelector('#arrow');
 
+  if (main.scrollTop > 50) {
+    arrow.classList.add('invisible');
+  } else {
+    arrow.classList.remove('invisible');
+  }
+
   if (main.scrollTop > window.innerHeight / 2) {
     document.documentElement.style.setProperty('--bg-color', '#efefef');
     document.documentElement.style.setProperty('--primary-color', '#171718');
@@ -38,22 +40,16 @@ const scrollEvent = () => {
     stage.classList.remove('invisible');
   }
 
-  if (main.scrollTop > 50) {
-    arrow.classList.add('invisible');
-  } else {
-    arrow.classList.remove('invisible');
-  }
-
   resizeWindow();
 };
 
 const showRandomSketch = () => {
-  const sketches = [cubeGrid, donut, lorenz, orbit, ring, terrain];
+  const sketches = [donut, orbit, ring];
 
   const randomNumGenerator = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
 
   const sketch = sketches[randomNumGenerator(0, sketches.length - 1)];
-  new p5(sketch);
+  const visual = new p5(sketch);
 }
 
 const initialize = () => {
