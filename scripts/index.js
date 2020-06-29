@@ -75,10 +75,24 @@ const initialize = () => {
     document.querySelector('main').style.scrollSnapType = 'none';
   }
 
-  const snackbar = document.querySelector('#snackbar');
-  snackbar.classList.add('show');
-  setTimeout(() => snackbar.classList.remove('show'), 3000);
+  // Set cookie to display snackbar only at first load
+  if(document.cookie.indexOf('snackbarLoad=') === -1){
+    setSnackbarCookie();
+    const snackbar = document.querySelector('#snackbar');
+    snackbar.classList.add('show');
+    setTimeout(() => snackbar.classList.remove('show'), 3000);
+  }
 };
+
+const setSnackbarCookie = () => {
+  const date = new Date();
+
+  // One hour expiry
+  date.setTime(date.getTime() + (1000*60*60));
+  const expires = `expires=${date.toUTCString()}`;
+  document.cookie = `snackbarLoad=true; ${expires}; path=/`;
+};
+
 
 window.addEventListener('load', initialize);
 
