@@ -74,6 +74,10 @@ const initialize = () => {
     document.querySelector('.about .links').style.scrollSnapAlign = 'none';
     document.querySelector('main').style.scrollSnapType = 'none';
   }
+
+  const snackbar = document.querySelector('#snackbar');
+  snackbar.classList.add('show');
+  setTimeout(() => snackbar.classList.remove('show'), 3000);
 };
 
 window.addEventListener('load', initialize);

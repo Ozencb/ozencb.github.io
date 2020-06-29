@@ -74,6 +74,26 @@ svg {
   flex-direction: column;
 }
 
+#snackbar {
+  visibility: hidden;
+  width: 250px;
+  background-color: var(--primary-color);
+  color: var(--bg-color);
+  text-align: center;
+  border-radius: 5px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  font-size: 1em;
+  align-self: center;
+}
+
+#snackbar.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
 .intro .name {
   font-size: 6em;
   margin: 5rem 0 0 0;
@@ -216,7 +236,25 @@ a:hover,
   }
 }
 
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
 
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
 
 
 
