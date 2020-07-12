@@ -1,5 +1,7 @@
 import debounce from 'lodash.debounce';
 
+import { experience } from './experience';
+
 import donut from './sketches/donut';
 import orbit from './sketches/orbit';
 import ring from './sketches/ring';
@@ -82,6 +84,10 @@ const initialize = () => {
     snackbar.classList.add('show');
     setTimeout(() => snackbar.classList.remove('show'), 3000);
   }
+
+  experience.forEach(exp => {
+    createExperienceElement(exp);
+  });
 };
 
 const setSnackbarCookie = () => {
@@ -92,6 +98,31 @@ const setSnackbarCookie = () => {
   const expires = `expires=${date.toUTCString()}`;
   document.cookie = `snackbarLoad=true; ${expires}; path=/`;
 };
+
+const createExperienceElement = (exp) => {
+  const targetContainer = document.querySelector(`.${exp.type}`);
+
+  const item = document.createElement('div');
+  item.classList.add('item');
+
+  const firstLine = document.createElement('div');
+  firstLine.classList.add('first-line');
+  firstLine.innerText = exp.heading;
+
+  const secondLine = document.createElement('div');
+  secondLine.classList.add('second-line');
+  secondLine.innerText = exp.sub;
+
+  const year = document.createElement('div');
+  year.classList.add('year');
+  year.innerHTML = `${exp.yearStart}<span><span class="year-dash"> - </span><br class="year-break" /></span>${exp.yearEnd}`;
+
+  item.appendChild(firstLine);
+  item.appendChild(secondLine);
+  item.appendChild(year);
+
+  targetContainer.appendChild(item);
+}
 
 
 window.addEventListener('load', initialize);
