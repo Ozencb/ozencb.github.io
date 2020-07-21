@@ -6,15 +6,6 @@ import donut from './sketches/donut';
 import orbit from './sketches/orbit';
 import ring from './sketches/ring';
 
-console.info(`Welcome! Thanks you for visiting my site.
-
-If you liked the background visuals make sure to 
-refresh the page to see other generative backgrounds!
-
-If you have any questions please let me know at: bilgiliozenc@gmail.com
-`);
-
-
 const main = document.querySelector('#main');
 
 const resizeWindow = () => {
